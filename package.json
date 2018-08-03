@@ -1,0 +1,44 @@
+{
+  "name": "status.io",
+  "version": "0.0.1",
+  "description": "Freak website monitoring tools",
+  "main": "server.js",
+  "scripts": {
+    "test": "mocha --recursive './src/**/*.test.js'",
+    "dev:server": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/purwandi/status.io.git"
+  },
+  "keywords": [
+    "monitoring",
+    "nodejs"
+  ],
+  "author": "Purwandi <me@purwandi.id>",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/purwandi/status.io/issues"
+  },
+  "homepage": "https://github.com/purwandi/status.io#readme",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "body-parser": "^1.18.3",
+    "chalk": "^2.4.1",
+    "compression": "^1.7.2",
+    "dotenv": "^6.0.0",
+    "express": "^4.16.3",
+    "express-session": "^1.15.6",
+    "express-status-monitor": "^1.1.4",
+    "express-validation": "^1.0.2",
+    "get-ssl-certificate": "^2.1.2",
+    "joi": "^13.4.0",
+    "objectmodel": "^3.5.2",
+    "uuid": "^3.3.2"
+  },
+  "devDependencies": {
+    "mocha": "^5.2.0",
+    "morgan": "^1.9.0",
+    "nodemon": "^1.17.5"
+  }
+}
