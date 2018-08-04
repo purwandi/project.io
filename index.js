@@ -25,6 +25,10 @@ app.use(express.static(path.join(__dirname, '/public'), { maxAge: 3600 }))
 // router register
 app.use('/users', require('./src/user/server'))
 
+// team domain
+const teamServer  = require('./src/assets/server/team_server')
+app.use('/teams', teamServer.TeamRouter(teamServer.NewTeamServer()))
+
 app.listen(app.get('port'), () => {
   console.log(
     '%s App is running at http://%s:%d in %s mode',
