@@ -2,17 +2,16 @@ const {
   Error,
   UserErrorUsernameEmptyCode,
   UserErrorPasswordEmptyCode,
-  UserErrorMustBeInstanceoffUser
 } = require('./user_errors')
 const { Model } = require('objectmodel')
-const uuid4 = require('uuid/v4')
+const uuid = require('uuid')
 
 const UserProperty = {
-  uid: String,
+  UID: String,
   username: String,
   password: String,
-  created_at: String,
-  updated_at: [String]
+  created_at: Date,
+  updated_at: [Date]
 }
 
 class User extends Model(UserProperty) {
@@ -27,16 +26,16 @@ class User extends Model(UserProperty) {
     }
 
     return new User({
-      uid: uuid4(),
+      UID: uuid.v4(),
       username: username,
       password: password ,
-      created_at: (new Date).toISOString()
+      created_at: new Date()
     })
   }
 
   changePassword (password) {
     this.password = password
-    this.updated_at = (new Date).toISOString()
+    this.updated_at = new Date()
     return this
   }
 }

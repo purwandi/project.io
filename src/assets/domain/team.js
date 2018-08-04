@@ -7,13 +7,14 @@ const {
 } = require('./team_errors')
 const uuid4 = require('uuid/v4')
 const { slugIsValid } = require('./team_validate')
-const { Model } = require('objectmodel')
+const { Model, ArrayModel } = require('objectmodel')
+const User = require('./../../user/domain/user')
 
 const TeamProperty = {
-  uid: String,
+  UID: String,
   name: String,
   slug: String,
-  member: [Array]
+  member: [ArrayModel(User)]
 }
 
 class Team extends Model(TeamProperty)  {
@@ -31,7 +32,7 @@ class Team extends Model(TeamProperty)  {
       throw Error(TeamErrorSlugIsNotValid)
     }
 
-    return new Team({ uid: uuid4(), name, slug, member: [] })
+    return new Team({ UID: uuid4(), name, slug })
   }
 
   attachMember (member) {
@@ -44,7 +45,11 @@ class Team extends Model(TeamProperty)  {
   }
 
   isMemberRegistered (member) {
-    return this.member.find(data => data.uid === member.uid)
+    if (Array.isArray(this.member)) {
+      return this.member.find(data => data.UID === member.UID)
+    }
+    this.member = []
+    return false
   }
 }
 

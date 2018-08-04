@@ -1,5 +1,6 @@
-const assert = require('assert')
-const expect = require('chai').expect
+const chai = require('chai')
+const sinon = require('sinon')
+const uuid = require('uuid')
 const User = require('./user')
 const {
   UserErrorUsernameEmptyCode,
@@ -9,24 +10,41 @@ const {
 
 describe('User domain test', () => {
   it('should throw error if username is blank', () => {
-    expect(() => User.createUser(''))
+    chai.expect(() => User.createUser(''))
       .to.throw(Error(UserErrorUsernameEmptyCode))
   })
 
   it('should throw error if password is blank', () => {
-    expect(() => User.createUser('purwandi', ''))
+    chai.expect(() => User.createUser('purwandi', ''))
       .to.throw(Error(UserErrorPasswordEmptyCode))
   })
 
   it('should create a user', () => {
-    let status = User.createUser('purwandi', 'password')
-    assert.equal(true, status instanceof User)
+    sinon.stub(uuid, 'v4').callsFake(() => 'fake-ui-with')
+
+    let user = User.createUser('purwandi', 'password')
+
+    chai.expect(user)
+      .to.include({
+        UID: 'fake-ui-with',
+        username: 'purwandi',
+        password: 'password'
+      })
+
+    uuid.v4.restore() // restore function
   })
 
   it('can change password', () => {
+    sinon.stub(uuid, 'v4').callsFake(() => '12-a23-2423')
     let user = User.createUser('purwandi', 'password')
-    let status = user.changePassword('neki')
 
-    assert.equal('neki', status.password)
+    chai.expect(user.changePassword('pass'))
+      .to.be.ok
+      .to.include({
+        UID: '12-a23-2423',
+        password: 'pass'
+      })
+
+    uuid.v4.restore() // restore function
   })
 })
