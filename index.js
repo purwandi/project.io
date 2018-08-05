@@ -23,11 +23,14 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(express.static(path.join(__dirname, '/public'), { maxAge: 3600 }))
 
 // router register
-app.use('/users', require('./src/user/server'))
+const sUser = require('./src/user/server')
+const UserServer = sUser.NewUserServer()
+app.use('/users', UserServer.mount())
 
 // team domain
-const teamServer  = require('./src/assets/server/team_server')
-app.use('/teams', teamServer.TeamRouter(teamServer.NewTeamServer()))
+const sTeam  = require('./src/team/server/team_server')
+const TeamServer = sTeam.NewTeamServer()
+app.use('/teams', TeamServer.mount())
 
 app.listen(app.get('port'), () => {
   console.log(

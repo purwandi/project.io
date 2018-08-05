@@ -1,7 +1,7 @@
 const assert = require('assert')
 const { expect } = require('chai')
 const Team = require('./team')
-const User = require('./../../user/domain/user')
+const TeamMember = require('./team_member')
 const {
   Error,
   TeamErrorNameisNotEmpty,
@@ -42,24 +42,56 @@ describe('Team domain test', () => {
 
     it ('can attach member in a team', () => {
       let team = Team.createTeam('Foobar', 'foobar-awesome')
-      let user1 = User.createUser('Foobar User 1', 'awesome password')
-      let user2 = User.createUser('Foobar User 2', 'awesome password')
 
-      team.attachMember(user1)
-      team.attachMember(user2)
+      team.attachMember('uid-232431', 'admin')
+      team.attachMember('uid-232432', 'member')
 
-      assert.deepEqual(team.member, [user1, user2])
+      expect(team.member)
+        .to.eql([
+          { userUID: 'uid-232431', role: 'admin'},
+          { userUID: 'uid-232432', role: 'member'}
+        ])
+    })
+
+    it ('can check existing member in a current team', () => {
+      let team = Team.createTeam('Foobar', 'foobar-awesome')
+      team.member = [
+        TeamMember.createTeamMember('12312-23432431', 'admin'),
+        TeamMember.createTeamMember('12312-23432432', 'member')
+      ]
+
+      expect(team.isMemberRegistered('12312-23432431'))
+        .to.be.true
+
+      expect(team.isMemberRegistered('12312-23432433'))
+        .to.be.false
     })
 
     it ('can not attach new member, if the member is already attached', () => {
       let team = Team.createTeam('Foobar', 'foobar-awesome')
-      let user = User.createUser('Foobar User', 'some')
 
-      expect(() => team.attachMember(user)).to.be.ok
+      expect(() => team.attachMember('uid-232431', 'admin')).to.be.ok
 
-      team.attachMember(user)
-      expect(() => team.attachMember(user))
+      team.attachMember('uid-232431', 'admin')
+      expect(() => team.attachMember('uid-232431', 'admin'))
         .to.throw(Error(TeamErrorMemberIsRegistered))
+    })
+
+    it ('can change member role', () => {
+      let team = Team.createTeam('Foobar', 'foobar-awesome')
+      team.attachMember('uid-232431', 'admin')
+      team.attachMember('uid-232432', 'admin')
+      expect(() => team.changeMemberRole('uid-232431', 'member'))
+        .to.be.ok
+
+      team.changeMemberRole('uid-232431', 'member')
+      team.changeMemberRole('uid-232432', 'member')
+
+      expect(team.member)
+        .to.eql([
+          { userUID: 'uid-232431', role: 'member' },
+          { userUID: 'uid-232432', role: 'member' }
+        ])
     })
   })
 })

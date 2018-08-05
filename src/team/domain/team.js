@@ -8,13 +8,13 @@ const {
 const uuid4 = require('uuid/v4')
 const { slugIsValid } = require('./team_validate')
 const { Model, ArrayModel } = require('objectmodel')
-const User = require('./../../user/domain/user')
+const TeamMember = require('./team_member')
 
 const TeamProperty = {
   UID: String,
   name: String,
   slug: String,
-  member: [ArrayModel(User)]
+  member: [ArrayModel(TeamMember)]
 }
 
 class Team extends Model(TeamProperty)  {
@@ -35,18 +35,28 @@ class Team extends Model(TeamProperty)  {
     return new Team({ UID: uuid4(), name, slug })
   }
 
-  attachMember (member) {
-    // @TODO need to validate the member is instance of user class
-    if (this.isMemberRegistered(member)) {
+  attachMember (userUID, role) {
+    if (this.isMemberRegistered(userUID)) {
       throw Error(TeamErrorMemberIsRegistered)
     } else {
-      this.member.push(member)
+      this.member.push(
+        TeamMember.createTeamMember(userUID, role)
+      )
     }
   }
 
-  isMemberRegistered (member) {
+  changeMemberRole (userUID, role) {
+    this.member.forEach((item, index) => {
+      if (item.userUID === userUID) {
+        item.changeRole(role)
+        this.member[index] = item
+      }
+    })
+  }
+
+  isMemberRegistered (userUID) {
     if (Array.isArray(this.member)) {
-      return this.member.find(data => data.UID === member.UID)
+      return this.member.find(data => data.userUID === userUID) ? true : false
     }
     this.member = []
     return false

@@ -1,12 +1,47 @@
 const express = require('express')
-const app = express.Router()
+const repository = require('./../repository/user_repository')
+const User = require('./../domain/user')
 
-const router = (db) => {
-  app.get('/', (req, res) => {
-    res.send('i am come from user')
-  })
+class UserServer {
 
-  return app
+  constructor (userRepo, router) {
+    this.userRepo = userRepo
+    this.router = router
+  }
+
+  mount () {
+    this.router.get('/', this.findAll.bind(this))
+    this.router.post('/', this.store.bind(this))
+
+    return this.router
+  }
+
+  findAll (req, res) {
+    return res.json({
+      data: this.userRepo.FindAll()
+    })
+  }
+
+  store (req, res) {
+    try {
+      let user = User.createUser(req.body.username, req.body.password)
+      this.userRepo.Save(user)
+
+      return res.json({ data: user })
+    } catch (error) {
+      return res.status(500).json({ error })
+    }
+  }
+
 }
 
-module.exports = router
+const NewUserServer = () => {
+  let userRepo = repository.NewUserRepositoryInMemory()
+  let router = express.Router()
+
+  return new UserServer(userRepo, router)
+}
+
+module.exports = {
+  NewUserServer
+}

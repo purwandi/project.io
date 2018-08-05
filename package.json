@@ -4,7 +4,7 @@
   "description": "Freak website monitoring tools",
   "main": "server.js",
   "scripts": {
-    "test": "mocha --recursive './src/**/*.test.js'",
+    "test": "nyc mocha --recursive './src/**/*.test.js'",
     "dev:server": "nodemon index.js"
   },
   "repository": {
@@ -39,8 +39,10 @@
   },
   "devDependencies": {
     "chai": "^4.1.2",
+    "cucumber": "^4.2.1",
     "mocha": "^5.2.0",
     "morgan": "^1.9.0",
-    "nodemon": "^1.17.5"
+    "nodemon": "^1.17.5",
+    "nyc": "^12.0.2"
   }
 }
