@@ -1,7 +1,8 @@
-const { Model } = require('objectmodel')
+const { Model, ArrayModel } = require('objectmodel')
 const uuid = require('uuid')
 
 const Team = require('./team')
+const Issue = require('./issue')
 const {
   Error,
   BoardErrorNameisNotEmpty,
@@ -12,6 +13,7 @@ const BoardProperty = Model({
   UID: String,
   name: String,
   team: Team,
+  issues: [ArrayModel(Issue)],
   created_at: Date,
   updated_at: [Date]
 })
@@ -39,6 +41,19 @@ class Board extends BoardProperty {
   changeName (name) {
     this.name = name
     this.updated_at = new Date()
+  }
+
+  /**
+   * Add issue in current board
+   *
+   * @param {*} issue
+   */
+  addIssue (issue) {
+    if (!Array.isArray(this.issues)) {
+      this.issues = []
+    }
+
+    this.issues.push(issue)
   }
 
 }
