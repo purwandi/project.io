@@ -9,15 +9,17 @@ const uuid4 = require('uuid/v4')
 const { slugIsValid } = require('./team_validate')
 const { Model, ArrayModel } = require('objectmodel')
 const TeamMember = require('./team_member')
+const Board = require('./board')
 
-const TeamProperty = {
+const TeamProperty = Model({
   UID: String,
   name: String,
   slug: String,
-  member: [ArrayModel(TeamMember)]
-}
+  members: [ArrayModel(TeamMember)],
+  boards: [ArrayModel(Board)]
+})
 
-class Team extends Model(TeamProperty)  {
+class Team extends TeamProperty  {
 
   static createTeam (name, slug) {
     if (!name) {
@@ -32,35 +34,40 @@ class Team extends Model(TeamProperty)  {
       throw Error(TeamErrorSlugIsNotValid)
     }
 
-    return new Team({ UID: uuid4(), name, slug })
+    return new Team({ UID: uuid4(), name, slug, members: [], boards: [] })
   }
 
   attachMember (userUID, role) {
     if (this.isMemberRegistered(userUID)) {
       throw Error(TeamErrorMemberIsRegistered)
     } else {
-      this.member.push(
+      this.members.push(
         TeamMember.createTeamMember(userUID, role)
       )
     }
   }
 
   changeMemberRole (userUID, role) {
-    this.member.forEach((item, index) => {
+    this.members.forEach((item, index) => {
       if (item.userUID === userUID) {
         item.changeRole(role)
-        this.member[index] = item
+        this.members[index] = item
       }
     })
   }
 
   isMemberRegistered (userUID) {
-    if (Array.isArray(this.member)) {
-      return this.member.find(data => data.userUID === userUID) ? true : false
+    if (Array.isArray(this.members)) {
+      return this.members.find(data => data.userUID === userUID) ? true : false
     }
-    this.member = []
+    this.members = []
     return false
   }
+
+  addBoard (board) {
+    this.boards.push(board)
+  }
+
 }
 
 module.exports = Team

@@ -46,7 +46,7 @@ describe('Team domain test', () => {
       team.attachMember('uid-232431', 'admin')
       team.attachMember('uid-232432', 'member')
 
-      expect(team.member)
+      expect(team.members)
         .to.eql([
           { userUID: 'uid-232431', role: 'admin'},
           { userUID: 'uid-232432', role: 'member'}
@@ -55,7 +55,7 @@ describe('Team domain test', () => {
 
     it ('can check existing member in a current team', () => {
       let team = Team.createTeam('Foobar', 'foobar-awesome')
-      team.member = [
+      team.members = [
         TeamMember.createTeamMember('12312-23432431', 'admin'),
         TeamMember.createTeamMember('12312-23432432', 'member')
       ]
@@ -73,6 +73,7 @@ describe('Team domain test', () => {
       expect(() => team.attachMember('uid-232431', 'admin')).to.be.ok
 
       team.attachMember('uid-232431', 'admin')
+
       expect(() => team.attachMember('uid-232431', 'admin'))
         .to.throw(Error(TeamErrorMemberIsRegistered))
     })
@@ -87,7 +88,7 @@ describe('Team domain test', () => {
       team.changeMemberRole('uid-232431', 'member')
       team.changeMemberRole('uid-232432', 'member')
 
-      expect(team.member)
+      expect(team.members)
         .to.eql([
           { userUID: 'uid-232431', role: 'member' },
           { userUID: 'uid-232432', role: 'member' }

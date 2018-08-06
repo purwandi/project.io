@@ -16,7 +16,8 @@ describe('Team member domain test', () => {
     it ('can change member role', () => {
       let team = TeamMember.createTeamMember('122312-12321', 'admin')
       team.changeRole('member')
-      expect(team).to.be.include({
+      expect(team)
+        .to.be.include({
           userUID: '122312-12321',
           role: 'member'
         })

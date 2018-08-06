@@ -15,8 +15,8 @@ class TeamRepository {
     return this.teamMap
   }
 
-  FindByUid (uid) {
-    return this.teamMap.find(data => data.uid === uid)
+  FindById (uid) {
+    return this.teamMap.find(data => data.UID === uid)
   }
 
 }
@@ -26,6 +26,5 @@ const NewTeamRepositoryInMemory = () => {
 }
 
 module.exports = {
-  TeamRepository,
   NewTeamRepositoryInMemory
 }
