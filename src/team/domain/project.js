@@ -1,14 +1,13 @@
 const { Model } = require('objectmodel')
 const {
   Error,
-  ProjectErrorTeamisNotInstanceofTeam,
+  ProjectErrorTeamisNotEmpty,
   ProjectErrorNameisNotEmpty,
   ProjectErrorSlugisNotEmpty,
   ProjectErrorVisibilityisNotEmpty,
   ProjectErrorVisibilityInvalidType
 } = require('./project_error')
 const uuid = require('uuid')
-const Team = require('./team')
 
 const visibilityLevel = ['private', 'public']
 const ProjectProperty = Model({
@@ -16,17 +15,14 @@ const ProjectProperty = Model({
   name: String,
   slug: String,
   visibility: visibilityLevel,
-  team: Team,
+  teamUID: String,
   created_at: Date
 })
 
 class Project extends ProjectProperty {
 
-  static createProject (team, name, slug, visibility) {
-    if (team instanceof Team === false) {
-      throw Error(ProjectErrorTeamisNotInstanceofTeam)
-    }
-
+  static createProject (teamUID, name, slug, visibility) {
+    if (!teamUID) throw Error(ProjectErrorTeamisNotEmpty)
     if (!name) throw Error(ProjectErrorNameisNotEmpty)
     if (!slug) throw Error(ProjectErrorSlugisNotEmpty)
     if (!visibility) throw Error(ProjectErrorVisibilityisNotEmpty)
@@ -40,10 +36,11 @@ class Project extends ProjectProperty {
       name: name,
       slug: slug,
       visibility: visibility,
-      team: team,
+      teamUID: teamUID,
       created_at: new Date()
     })
   }
+
 }
 
 module.exports = Project

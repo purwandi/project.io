@@ -1,5 +1,5 @@
 const BoardErrorNameisNotEmpty = 1
-const BoardErrorProjectisNotEmpty  = 2
+const BoardErrorProjectisNotEmpty = 2
 
 const Error = (error) => {
   switch (error) {

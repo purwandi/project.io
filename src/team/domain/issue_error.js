@@ -1,7 +1,7 @@
 const IssueErrorTitleisNotEmpty = 1
 const IssueErrorBoardIsNotEmpty = 2
 
-const Error =  (error) => {
+const Error = (error) => {
   switch (error) {
     case IssueErrorTitleisNotEmpty:
       return 'The issue title is not empty'

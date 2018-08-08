@@ -1,7 +1,7 @@
 'use strict'
 
 const TeamMember = require('./../domain/team_member')
-const { Error, RepositoryErrorIsNotInstanceOfTeamMember} = require('./repository_error')
+const { Error, RepositoryErrorIsNotInstanceOfTeamMember } = require('./repository_error')
 
 class TeamMemberRepository {
 

@@ -1,11 +1,33 @@
 const { expect } = require('chai')
 const Team = require('./team')
 const TeamMember = require('./team_member')
-const { Error, TeamMemberErrorAlreadyHasThisRole } = require('./team_member_errors')
+const {
+  Error,
+  TeamMemberErrorTeamUIDisNotEmpty,
+  TeamMemberErrorUserUIDisNotEmpty,
+  TeamMemberErrorInvalidRoleType,
+  TeamMemberErrorAlreadyHasThisRole
+} = require('./team_member_errors')
 
 describe('Team member domain test', () => {
   describe('Team member unit testing suite', () => {
-    it ('can create team member', () => {
+
+    it('should throw error if the userUID is empty', () => {
+      expect(() => TeamMember.createTeamMember())
+        .to.throw(Error(TeamMemberErrorUserUIDisNotEmpty))
+    })
+
+    it('should throw error if the memberUID is empty', () => {
+      expect(() => TeamMember.createTeamMember('asdasd-qweqweqw'))
+        .to.throw(Error(TeamMemberErrorTeamUIDisNotEmpty))
+    })
+
+    it('should throw error if the role is not valid', () => {
+      expect(() => TeamMember.createTeamMember('asdasd-qweqweqw', '23423423423-23423', 'ada'))
+        .to.throw(Error(TeamMemberErrorInvalidRoleType))
+    })
+
+    it('can create team member', () => {
       let team = Team.createTeam('Foobar', 'foobar')
       let member = TeamMember.createTeamMember('12323-123123-12321', team.UID, 'admin')
 
@@ -16,7 +38,7 @@ describe('Team member domain test', () => {
       })
     })
 
-    it ('can change member role', () => {
+    it('can change member role', () => {
       let team = Team.createTeam('Foobar', 'foobar')
       let member = TeamMember.createTeamMember('12323-123123-12321', team.UID, 'admin')
       member.changeRole('member')
@@ -28,7 +50,7 @@ describe('Team member domain test', () => {
         })
     })
 
-    it ('change member role will throw an error if the role is same with current role', () => {
+    it('change member role will throw an error if the role is same with current role', () => {
       let team = Team.createTeam('Foobar', 'foobar')
       let member = TeamMember.createTeamMember('12323-123123-12321', team.UID, 'admin')
 

@@ -15,16 +15,11 @@ const TeamProperty = Model({
   created_at: Date
 })
 
-class Team extends TeamProperty  {
+class Team extends TeamProperty {
 
   static createTeam (name, slug) {
-    if (!name) {
-      throw Error(TeamErrorNameisNotEmpty)
-    }
-
-    if (!slug) {
-      throw Error(TeamErrorSlugisNotEmpty)
-    }
+    if (!name) throw Error(TeamErrorNameisNotEmpty)
+    if (!slug) throw Error(TeamErrorSlugisNotEmpty)
 
     if (!slugIsValid(slug)) {
       throw Error(TeamErrorSlugIsNotValid)
@@ -34,9 +29,10 @@ class Team extends TeamProperty  {
       UID: uuid4(),
       name: name,
       slug: slug,
-      created_at: new Date
+      created_at: new Date()
     })
   }
+
 }
 
 module.exports = Team

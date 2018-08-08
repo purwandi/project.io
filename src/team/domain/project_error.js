@@ -2,7 +2,7 @@ const ProjectErrorNameisNotEmpty = 1
 const ProjectErrorSlugIsNotEmpty = 2
 const ProjectErrorVisibilityisNotEmpty = 3
 const ProjectErrorVisibilityInvalidType = 4
-const ProjectErrorTeamisNotInstanceofTeam = 5
+const ProjectErrorTeamisNotEmpty = 5
 
 const Error = (error) => {
   switch (error) {
@@ -14,8 +14,8 @@ const Error = (error) => {
       return 'The project visibility is not empty'
     case ProjectErrorVisibilityInvalidType:
       return 'Visibility should be private or public'
-    case ProjectErrorTeamisNotInstanceofTeam:
-      return 'The team parameter is not instance of team class'
+    case ProjectErrorTeamisNotEmpty:
+      return 'The project name is not empty'
     default:
       return 'Unrecognized project error code'
   }
@@ -27,5 +27,5 @@ module.exports = {
   ProjectErrorSlugIsNotEmpty,
   ProjectErrorVisibilityisNotEmpty,
   ProjectErrorVisibilityInvalidType,
-  ProjectErrorTeamisNotInstanceofTeam
+  ProjectErrorTeamisNotEmpty
 }

@@ -15,12 +15,12 @@ describe('Team domain test', () => {
         .to.throw(Error(TeamErrorNameisNotEmpty))
     })
 
-    it ('should throw error if slug is blank', () => {
+    it('should throw error if slug is blank', () => {
       expect(() => Team.createTeam('Foobar'))
         .to.throw(Error(TeamErrorSlugisNotEmpty))
     })
 
-    it ('should throw error, if slug is not valid format', () => {
+    it('should throw error, if slug is not valid format', () => {
       expect(() => Team.createTeam('Foobar', 'Foobar Awesome'))
         .to.throw(Error(TeamErrorSlugIsNotValid))
 
@@ -31,11 +31,11 @@ describe('Team domain test', () => {
         .to.throw(Error(TeamErrorSlugIsNotValid))
     })
 
-    it ('should create new team', () => {
+    it('should create new team', () => {
       let team = Team.createTeam('Foobar', 'foobar-awesome')
-      assert.equal(true, team instanceof Team)
-      assert.equal('Foobar', team.name)
-      assert.equal('foobar-awesome', team.slug)
+      assert.strictEqual(true, team instanceof Team)
+      assert.strictEqual('Foobar', team.name)
+      assert.strictEqual('foobar-awesome', team.slug)
     })
 
   })

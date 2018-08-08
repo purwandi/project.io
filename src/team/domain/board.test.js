@@ -8,18 +8,18 @@ const {
 
 describe('Board domain test', () => {
   describe('Board domain unit test suite', () => {
-    it ('should throw an error if the given team is blank', () => {
+    it('should throw an error if the given team is blank', () => {
       chai.expect(() => Board.createBoard('', ''))
         .to.throw(Error(BoardErrorProjectisNotEmpty))
     })
 
-    it ('should throw an error if the given name is blank', () => {
+    it('should throw an error if the given name is blank', () => {
       chai.expect(() => Board.createBoard('1231-12312', ''))
         .to.throw(Error(BoardErrorNameisNotEmpty))
     })
 
-    it ('can create new board', () => {
-      b = Board.createBoard('1231-12312', 'halo')
+    it('can create new board', () => {
+      let b = Board.createBoard('1231-12312', 'halo')
 
       chai.expect(b)
         .to.be.include({
@@ -28,8 +28,8 @@ describe('Board domain test', () => {
         })
     })
 
-    it ('can change board name', () => {
-      b = Board.createBoard('1231-12312', 'Awesome Board')
+    it('can change board name', () => {
+      let b = Board.createBoard('1231-12312', 'Awesome Board')
       b.changeName('Board Only')
 
       chai.expect(b)

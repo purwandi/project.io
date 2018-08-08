@@ -1,4 +1,4 @@
-const express  = require('express')
+const express = require('express')
 const repository = require('./../repository/')
 const Team = require('./../domain/team')
 const Board = require('./../domain/board')
@@ -77,7 +77,7 @@ class TeamServer {
 
   FindBoardById (req, res) {
     try {
-      let team = this.teamRepo.FindById(req.params.teamUID)
+      // let team = this.teamRepo.FindById(req.params.teamUID)
       let board = this.boardRepo.FindById(req.params.boardUID)
 
       return res.json({ data: board })

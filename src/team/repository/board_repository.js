@@ -24,6 +24,7 @@ class BoardRepository {
   FindByID (boardUID) {
     return this.boardMap.find(data => data.UID === boardUID)
   }
+
 }
 
 const NewBoardRepositoryInMemory = () => {

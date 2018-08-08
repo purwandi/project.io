@@ -7,7 +7,7 @@ const { Error, RepositoryErrorIsNotInstanceOfIssue } = require('./repository_err
 
 describe('Issue Repository Test Suite', () => {
 
-  it ('ca not save new issue if the parameter is not instanceof board', () => {
+  it('ca not save new issue if the parameter is not instanceof board', () => {
     let repo = NewIssueRepositoryInMemory()
 
     chai.expect(() => repo.Save(''))
@@ -17,7 +17,7 @@ describe('Issue Repository Test Suite', () => {
       .to.throw(Error(RepositoryErrorIsNotInstanceOfIssue))
   })
 
-  it ('can save new board data into repository', () => {
+  it('can save new board data into repository', () => {
     let repo = NewIssueRepositoryInMemory()
     let team = Team.createTeam('Foobar 1', 'foobar-1')
     let board = Board.createBoard(team.UID, 'Awesome board')
@@ -31,7 +31,7 @@ describe('Issue Repository Test Suite', () => {
       .to.be.eql([ issue ])
   })
 
-  it ('can find team by id', () => {
+  it('can find team by id', () => {
     let repo = NewIssueRepositoryInMemory()
     let team = Team.createTeam('Foobar 1', 'foobar-1')
     let board = Board.createBoard(team.UID, 'Awesome board')

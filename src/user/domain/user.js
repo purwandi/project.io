@@ -1,7 +1,7 @@
 const {
   Error,
   UserErrorUsernameEmptyCode,
-  UserErrorPasswordEmptyCode,
+  UserErrorPasswordEmptyCode
 } = require('./user_errors')
 const { Model } = require('objectmodel')
 const uuid = require('uuid')
@@ -28,7 +28,7 @@ class User extends Model(UserProperty) {
     return new User({
       UID: uuid.v4(),
       username: username,
-      password: password ,
+      password: password,
       created_at: new Date()
     })
   }
@@ -38,6 +38,7 @@ class User extends Model(UserProperty) {
     this.updated_at = new Date()
     return this
   }
+
 }
 
 module.exports = User

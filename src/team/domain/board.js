@@ -1,4 +1,4 @@
-const { Model, ArrayModel } = require('objectmodel')
+const { Model } = require('objectmodel')
 const uuid = require('uuid')
 const {
   Error,
@@ -37,19 +37,6 @@ class Board extends BoardProperty {
   changeName (name) {
     this.name = name
     this.updated_at = new Date()
-  }
-
-  /**
-   * Add issue in current board
-   *
-   * @param Issue issue
-   */
-  addIssue (issue) {
-    if (!Array.isArray(this.issues)) {
-      this.issues = []
-    }
-
-    this.issues.push(issue)
   }
 
 }

@@ -5,7 +5,7 @@ const { Error, RepositoryErrorIsNotInstanceOfTeam } = require('./repository_erro
 
 describe('Team Repository Test Suite', () => {
 
-  it ('ca not save new team if the parameter is not instanceof team', () => {
+  it('ca not save new team if the parameter is not instanceof team', () => {
     let repo = NewTeamRepositoryInMemory()
 
     chai.expect(() => repo.Save(''))
@@ -15,7 +15,7 @@ describe('Team Repository Test Suite', () => {
       .to.throw(Error(RepositoryErrorIsNotInstanceOfTeam))
   })
 
-  it ('can save new team data into repository', () => {
+  it('can save new team data into repository', () => {
     let repo = NewTeamRepositoryInMemory()
     let team1 = Team.createTeam('Foobar 1', 'foobar-1')
     let team2 = Team.createTeam('Foobar 2', 'foobar-2')
@@ -29,7 +29,7 @@ describe('Team Repository Test Suite', () => {
       .to.be.eql([team1, team2])
   })
 
-  it ('can find team by id', () => {
+  it('can find team by id', () => {
     let repo = NewTeamRepositoryInMemory()
     let team1 = Team.createTeam('Foobar 1', 'foobar-1')
     let team2 = Team.createTeam('Foobar 2', 'foobar-2')

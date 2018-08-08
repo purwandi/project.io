@@ -17,7 +17,7 @@ const IssueProperty = Model({
 
 class Issue extends IssueProperty {
 
-  static createIssue(boardUID, title, body) {
+  static createIssue (boardUID, title, body) {
     if (!boardUID) {
       throw Error(IssueErrorBoardIsNotEmpty)
     }
@@ -29,7 +29,7 @@ class Issue extends IssueProperty {
     return new Issue({
       UID: uuid.v4(),
       title: title,
-      body: body ? body : null,
+      body: body,
       boardUID: boardUID,
       created_at: new Date()
     })
