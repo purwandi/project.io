@@ -1,29 +1,25 @@
 const { Model, ArrayModel } = require('objectmodel')
 const uuid = require('uuid')
-
-const Team = require('./team')
-const Issue = require('./issue')
 const {
   Error,
   BoardErrorNameisNotEmpty,
-  BoardErrorTeamisNotEmpty
+  BoardErrorProjectisNotEmpty
 } = require('./board_error')
 
 const BoardProperty = Model({
   UID: String,
   name: String,
-  team: Team,
-  issues: [ArrayModel(Issue)],
+  projectUID: String,
   created_at: Date,
   updated_at: [Date]
 })
 
 class Board extends BoardProperty {
 
-  static createBoard (team, name) {
+  static createBoard (projectUID, name) {
 
-    if (!team) {
-      throw Error(BoardErrorTeamisNotEmpty)
+    if (!projectUID) {
+      throw Error(BoardErrorProjectisNotEmpty)
     }
 
     if (!name) {
@@ -33,7 +29,7 @@ class Board extends BoardProperty {
     return new Board({
       UID: uuid.v4(),
       name: name,
-      team: team,
+      projectUID: projectUID,
       created_at: new Date()
     })
   }
@@ -46,7 +42,7 @@ class Board extends BoardProperty {
   /**
    * Add issue in current board
    *
-   * @param {*} issue
+   * @param Issue issue
    */
   addIssue (issue) {
     if (!Array.isArray(this.issues)) {

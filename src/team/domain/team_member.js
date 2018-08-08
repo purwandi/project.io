@@ -3,13 +3,14 @@ const { Error, TeamMemberErrorAlreadyHasThisRole } = require('./team_member_erro
 
 const TeamMemberProperty = {
   userUID: String,
+  teamUID: String,
   role: ['admin', 'member']
 }
 
 class TeamMember extends Model(TeamMemberProperty) {
 
-  static createTeamMember (userUID, role) {
-    return new TeamMember({ userUID, role })
+  static createTeamMember (userUID, teamUID, role) {
+    return new TeamMember({ userUID, teamUID, role })
   }
 
   changeRole (role) {

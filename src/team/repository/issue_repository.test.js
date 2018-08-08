@@ -20,8 +20,8 @@ describe('Issue Repository Test Suite', () => {
   it ('can save new board data into repository', () => {
     let repo = NewIssueRepositoryInMemory()
     let team = Team.createTeam('Foobar 1', 'foobar-1')
-    let board = Board.createBoard(team, 'Awesome board')
-    let issue = Issue.createIssue(board, 'New issue')
+    let board = Board.createBoard(team.UID, 'Awesome board')
+    let issue = Issue.createIssue(board.UID, 'New issue')
 
     repo.Save(issue)
 
@@ -34,11 +34,11 @@ describe('Issue Repository Test Suite', () => {
   it ('can find team by id', () => {
     let repo = NewIssueRepositoryInMemory()
     let team = Team.createTeam('Foobar 1', 'foobar-1')
-    let board = Board.createBoard(team, 'Awesome board')
+    let board = Board.createBoard(team.UID, 'Awesome board')
 
-    let issue1 = Issue.createIssue(board, 'New title issue', 'Hallo body issuees')
-    let issue2 = Issue.createIssue(board, 'New title issue', 'Hallo body issuees')
-    let issue3 = Issue.createIssue(board, 'New title issue', 'Hallo body issuees')
+    let issue1 = Issue.createIssue(board.UID, 'New title issue', 'Hallo body issuees')
+    let issue2 = Issue.createIssue(board.UID, 'New title issue', 'Hallo body issuees')
+    let issue3 = Issue.createIssue(board.UID, 'New title issue', 'Hallo body issuees')
 
     repo.Save(issue1)
     repo.Save(issue2)

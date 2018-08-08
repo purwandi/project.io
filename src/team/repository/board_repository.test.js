@@ -19,7 +19,7 @@ describe('Board Repository Test Suite', () => {
   it ('can save new board data into repository', () => {
     let repo = NewBoardRepositoryInMemory()
     let team = Team.createTeam('Foobar 1', 'foobar-1')
-    let board = Board.createBoard(team, 'Awesome board')
+    let board = Board.createBoard(team.UID, 'Awesome board')
 
     repo.Save(board)
 
@@ -35,9 +35,9 @@ describe('Board Repository Test Suite', () => {
     let team2 = Team.createTeam('Foobar 2', 'foobar-2')
     let team3 = Team.createTeam('Foobar 3', 'foobar-3')
 
-    let board1 = Board.createBoard(team1, 'Awesome board')
-    let board2 = Board.createBoard(team2, 'Awesome board')
-    let board3 = Board.createBoard(team2, 'Awesome board')
+    let board1 = Board.createBoard(team1.UID, 'Awesome board')
+    let board2 = Board.createBoard(team2.UID, 'Awesome board')
+    let board3 = Board.createBoard(team2.UID, 'Awesome board')
 
     repo.Save(board1)
     repo.Save(board2)

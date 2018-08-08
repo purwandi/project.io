@@ -1,7 +1,6 @@
 const TeamErrorNameisNotEmpty = 1
 const TeamErrorSlugisNotEmpty = 2
 const TeamErrorSlugIsNotValid = 3
-const TeamErrorMemberIsRegistered = 4
 
 const Error = (error) => {
   switch (error) {
@@ -11,8 +10,6 @@ const Error = (error) => {
       return 'Team slug cannot be empty'
     case TeamErrorSlugIsNotValid:
       return 'Team slug is not valid url friendly'
-    case TeamErrorMemberIsRegistered:
-      return 'Team member is already registered'
     default:
       return 'Unrecognized team error code'
   }
