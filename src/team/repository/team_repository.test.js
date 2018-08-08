@@ -1,8 +1,20 @@
 const { NewTeamRepositoryInMemory } = require('./team_repository')
 const chai = require('chai')
 const Team = require('./../domain/team')
+const { Error, RepositoryErrorIsNotInstanceOfTeam } = require('./repository_error')
 
 describe('Team Repository Test Suite', () => {
+
+  it ('ca not save new team if the parameter is not instanceof team', () => {
+    let repo = NewTeamRepositoryInMemory()
+
+    chai.expect(() => repo.Save(''))
+      .to.throw(Error(RepositoryErrorIsNotInstanceOfTeam))
+
+    chai.expect(() => repo.Save({ name: 'Foobar', UID: '2423432-23432432' }))
+      .to.throw(Error(RepositoryErrorIsNotInstanceOfTeam))
+  })
+
   it ('can save new team data into repository', () => {
     let repo = NewTeamRepositoryInMemory()
     let team1 = Team.createTeam('Foobar 1', 'foobar-1')

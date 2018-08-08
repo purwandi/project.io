@@ -1,12 +1,14 @@
 const express  = require('express')
 const repository = require('./../repository/')
 const Team = require('./../domain/team')
+const Board = require('./../domain/board')
 
 class TeamServer {
 
-  constructor (teamRepo, boardRepo, router) {
+  constructor (teamRepo, boardRepo, issueRepo, router) {
     this.teamRepo = teamRepo
     this.boardRepo = boardRepo
+    this.issueRepo = issueRepo
     this.router = router
   }
 
@@ -15,7 +17,11 @@ class TeamServer {
     this.router.post('/', this.SaveTeam.bind(this))
     this.router.get('/:teamUID', this.FindTeamByID.bind(this))
     this.router.get('/:teamUID/boards', this.FindAllBoard.bind(this))
+    this.router.post('/:teamUID/boards', this.SaveBoard.bind(this))
     this.router.get('/:teamUID/boards/:boardUID', this.FindBoardById.bind(this))
+    this.router.get('/:teamUID/boards/:boardUID/issues', this.FindAllIssue.bind(this))
+    this.router.post('/:teamUID/boards/:boardUID/issues', this.SaveIssue.bind(this))
+    this.router.get('/:teamUID/boards/:boardUID/issues/:issueUID', this.GetIssue.bind(this))
 
     return this.router
   }
@@ -56,8 +62,40 @@ class TeamServer {
     return res.json({ data: team })
   }
 
+  SaveBoard (req, res) {
+    try {
+      let team = this.teamRepo.FindById(req.params.teamUID)
+      let board = Board.createBoard(team, req.params.name)
+
+      this.boardRepo.Save(board)
+
+      return res.json({ data: board })
+    } catch (error) {
+      return res.status(500).json({ error })
+    }
+  }
+
   FindBoardById (req, res) {
-    return res.json({ params: req.params })
+    try {
+      let team = this.teamRepo.FindById(req.params.teamUID)
+      let board = this.boardRepo.FindById(req.params.boardUID)
+
+      return res.json({ data: board })
+    } catch (error) {
+      return res.status(500).json({ error })
+    }
+  }
+
+  FindAllIssue (req, res) {
+
+  }
+
+  SaveIssue (req, res) {
+
+  }
+
+  GetIssue (req, res) {
+
   }
 
 }
@@ -65,9 +103,10 @@ class TeamServer {
 const NewTeamServer = () => {
   let teamRepo = repository.NewTeamRepositoryInMemory()
   let boardRepo = repository.NewBoardRepositoryInMemory()
+  let issueRepo = repository.NewIssueRepisitoryInMemory()
   let router = express.Router()
 
-  return new TeamServer(teamRepo, boardRepo, router)
+  return new TeamServer(teamRepo, boardRepo, issueRepo, router)
 }
 
 module.exports = {

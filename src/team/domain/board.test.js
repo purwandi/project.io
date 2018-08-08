@@ -47,8 +47,8 @@ describe('Board domain test', () => {
     it ('can attach the issue from given board', () => {
       t = Team.createTeam('Foobar', 'foobar')
       b = Board.createBoard(t, 'Awesome Board')
-      issue1 = Issue.createIssue('Awesome issue 1')
-      issue2 = Issue.createIssue('Awesome issue 2')
+      issue1 = Issue.createIssue(t, 'Awesome issue 1')
+      issue2 = Issue.createIssue(t, 'Awesome issue 2')
 
       b.addIssue(issue1)
       b.addIssue(issue2)

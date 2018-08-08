@@ -1,5 +1,8 @@
 'use strict'
 
+const { Error, RepositoryErrorIsNotInstanceOfBoard } = require('./repository_error')
+const Board = require('./../domain/board')
+
 class BoardRepository {
 
   constructor (boardMap = []) {
@@ -7,6 +10,10 @@ class BoardRepository {
   }
 
   Save (board) {
+    if (board instanceof Board === false) {
+      throw Error(RepositoryErrorIsNotInstanceOfBoard)
+    }
+
     this.boardMap.push(board)
   }
 

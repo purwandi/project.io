@@ -1,5 +1,8 @@
 'use strict'
 
+const Team = require('./../domain/team')
+const { Error, RepositoryErrorIsNotInstanceOfTeam } = require('./repository_error')
+
 class TeamRepository {
 
   constructor (teams = []) {
@@ -7,8 +10,11 @@ class TeamRepository {
   }
 
   Save (team) {
-    // @TODO check is instance of team
-    return this.teamMap.push(team)
+    if (team instanceof Team === false) {
+      throw Error(RepositoryErrorIsNotInstanceOfTeam)
+    }
+
+    this.teamMap.push(team)
   }
 
   FindAll () {
