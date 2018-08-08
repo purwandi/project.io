@@ -8,6 +8,8 @@ const uuid = require('uuid')
 
 const UserProperty = {
   UID: String,
+  name: [String],
+  email: [String],
   username: String,
   password: String,
   created_at: Date,
@@ -37,6 +39,16 @@ class User extends Model(UserProperty) {
     this.password = password
     this.updated_at = new Date()
     return this
+  }
+
+  changeName (name) {
+    this.name = name
+    this.updated_at = new Date()
+  }
+
+  changeEmail (email) {
+    this.email = email
+    this.updated_at = new Date()
   }
 
 }

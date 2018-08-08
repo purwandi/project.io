@@ -2,21 +2,12 @@ language: node_js
 node_js:
   - "8"
 
-stage:
-  - test
-
 sudo: false
 
 cache:
   directories:
     - "node_modules"
 
-jobs:
-  include:
-    - stage: test
-      name: "Linting Process"
-      script:
-        - npm run lint
-      name: "Unit test"
-      script:
-        - npm run test
+script:
+  - npm run lint
+  - npm run test

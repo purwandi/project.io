@@ -1,5 +1,4 @@
 const express = require('express')
-const repository = require('./../repository/')
 const Team = require('./../domain/team')
 const Board = require('./../domain/board')
 
@@ -100,12 +99,8 @@ class TeamServer {
 
 }
 
-const NewTeamServer = () => {
-  let teamRepo = repository.NewTeamRepositoryInMemory()
-  let boardRepo = repository.NewBoardRepositoryInMemory()
-  let issueRepo = repository.NewIssueRepisitoryInMemory()
+const NewTeamServer = (teamRepo, boardRepo, issueRepo) => {
   let router = express.Router()
-
   return new TeamServer(teamRepo, boardRepo, issueRepo, router)
 }
 

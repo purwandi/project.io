@@ -22,14 +22,25 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(express.static(path.join(__dirname, '/public'), { maxAge: 3600 }))
 
-// router register
-const sUser = require('./src/user/server')
-const UserServer = sUser.NewUserServer()
-app.use('/users', UserServer.mount())
+// // router register
+// const sUser = require('./src/user/server')
+// const UserServer = sUser.NewUserServer()
+// app.use('/users', UserServer.mount())
 
-// team domain
+// // team domain
+// const sTeam  = require('./src/team/server/team_server')
+// const TeamServer = sTeam.NewTeamServer()
+// app.use('/teams', TeamServer.mount())
+
+// CONNECT TO DOMAIN SERVICE
+const teamRepository = require('./src/team/repository')
 const sTeam  = require('./src/team/server/team_server')
-const TeamServer = sTeam.NewTeamServer()
+
+let teamRepo = teamRepository.NewTeamRepositoryInMemory()
+let boardRepo = teamRepository.NewBoardRepositoryInMemory()
+let issueRepo = teamRepository.NewIssueRepisitoryInMemory()
+
+const TeamServer = sTeam.NewTeamServer(teamRepo, boardRepo, issueRepo)
 app.use('/teams', TeamServer.mount())
 
 app.listen(app.get('port'), () => {

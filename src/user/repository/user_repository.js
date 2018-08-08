@@ -1,5 +1,8 @@
 'use strict'
 
+const User = require('./../domain/user')
+const { Error, RepositoryErrorIsNotInstanceOfUser } = require('./repository_error')
+
 class UserRepository {
 
   constructor (users) {
@@ -7,15 +10,29 @@ class UserRepository {
   }
 
   Save (user) {
-    this.userMap.push(user)
+    if (user instanceof User === false) {
+      throw Error(RepositoryErrorIsNotInstanceOfUser)
+    }
+
+    let index = this.FindIndex(user)
+
+    if (index > -1) {
+      this.userMap[index] = user
+    } else {
+      this.userMap.push(user)
+    }
   }
 
   FindAll () {
     return this.userMap
   }
 
-  Find (uid) {
-    this.userMap.find(data => data.UID === uid)
+  FindById (uid) {
+    return this.userMap.find(data => data.UID === uid)
+  }
+
+  FindIndex (User) {
+    return this.userMap.findIndex(item => item.UID === User.UID)
   }
 
 }
@@ -25,6 +42,5 @@ const NewUserRepositoryInMemory = () => {
 }
 
 module.exports = {
-  UserRepository,
   NewUserRepositoryInMemory
 }

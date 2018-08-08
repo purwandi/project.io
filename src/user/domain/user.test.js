@@ -47,4 +47,30 @@ describe('User domain test', () => {
 
     uuid.v4.restore() // restore function
   })
+
+  it('can change name', () => {
+    let user = User.createUser('purwandi', 'password')
+    user.changeName('Foobar')
+
+    chai.expect(user)
+      .to.be.ok
+      .to.include({
+        username: 'purwandi',
+        password: 'password',
+        name: 'Foobar'
+      })
+  })
+
+  it('can change email', () => {
+    let user = User.createUser('purwandi', 'password')
+    user.changeEmail('foo@bar.com')
+
+    chai.expect(user)
+      .to.be.ok
+      .to.include({
+        username: 'purwandi',
+        password: 'password',
+        email: 'foo@bar.com'
+      })
+  })
 })
