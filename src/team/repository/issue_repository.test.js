@@ -1,4 +1,4 @@
-const { NewIssueRepositoryInMemory } = require('./issue_repository')
+const IssueRepositoryInMemory = require('./issue_repository')
 const chai = require('chai')
 const Team = require('./../domain/team')
 const Board = require('./../domain/board')
@@ -8,7 +8,7 @@ const { Error, RepositoryErrorIsNotInstanceOfIssue } = require('./repository_err
 describe('Issue Repository Test Suite', () => {
 
   it('ca not save new issue if the parameter is not instanceof board', () => {
-    let repo = NewIssueRepositoryInMemory()
+    let repo = IssueRepositoryInMemory.init()
 
     chai.expect(() => repo.Save(''))
       .to.throw(Error(RepositoryErrorIsNotInstanceOfIssue))
@@ -18,7 +18,7 @@ describe('Issue Repository Test Suite', () => {
   })
 
   it('can save new board data into repository', () => {
-    let repo = NewIssueRepositoryInMemory()
+    let repo = IssueRepositoryInMemory.init()
     let team = Team.createTeam('Foobar 1', 'foobar-1')
     let board = Board.createBoard(team.UID, 'Awesome board')
     let issue = Issue.createIssue(board.UID, 'New issue')
@@ -32,7 +32,7 @@ describe('Issue Repository Test Suite', () => {
   })
 
   it('can find team by id', () => {
-    let repo = NewIssueRepositoryInMemory()
+    let repo = IssueRepositoryInMemory.init()
     let team = Team.createTeam('Foobar 1', 'foobar-1')
     let board = Board.createBoard(team.UID, 'Awesome board')
 

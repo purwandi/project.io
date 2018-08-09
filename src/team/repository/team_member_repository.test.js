@@ -1,10 +1,10 @@
 const chai = require('chai')
-const { NewTeamMemberRepositoryInMemory } = require('./team_member_repository')
+const TeamMemberRepositoryInMemory = require('./team_member_repository')
 const TeamMember = require('./../domain/team_member')
 
 describe('Team Member Repository Test', () => {
   it('can save new team member', () => {
-    let repo = NewTeamMemberRepositoryInMemory()
+    let repo = TeamMemberRepositoryInMemory.init()
 
     let member1 = TeamMember.createTeamMember('12323-123123-12321', '22323-123123-12321', 'admin')
     let member2 = TeamMember.createTeamMember('12323-123123-12321', '22323-123123-12322', 'member')
@@ -24,7 +24,7 @@ describe('Team Member Repository Test', () => {
   })
 
   it('can udpate repository data', () => {
-    let repo = NewTeamMemberRepositoryInMemory()
+    let repo = TeamMemberRepositoryInMemory.init()
 
     let member1 = TeamMember.createTeamMember('12323-123123-12321', '22323-123123-12321', 'admin')
     let member2 = TeamMember.createTeamMember('12323-123123-12321', '22323-123123-12322', 'member')
@@ -46,7 +46,7 @@ describe('Team Member Repository Test', () => {
   })
 
   it('can find all find team by user id', () => {
-    let repo = NewTeamMemberRepositoryInMemory()
+    let repo = TeamMemberRepositoryInMemory.init()
 
     let member1 = TeamMember.createTeamMember('12323-123123-12321', '22323-123123-12321', 'admin')
     let member2 = TeamMember.createTeamMember('12323-123123-12321', '22323-123123-12322', 'member')
@@ -65,7 +65,7 @@ describe('Team Member Repository Test', () => {
   })
 
   it('can find all find team by team id', () => {
-    let repo = NewTeamMemberRepositoryInMemory()
+    let repo = TeamMemberRepositoryInMemory.init()
 
     let member1 = TeamMember.createTeamMember('12323-123123-12321', '22323-123123-12321', 'admin')
     let member2 = TeamMember.createTeamMember('12323-123123-12321', '22323-123123-12322', 'member')

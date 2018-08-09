@@ -3,10 +3,14 @@
 const { Error, RepositoryErrorIsNotInstanceOfBoard } = require('./repository_error')
 const Board = require('./../domain/board')
 
-class BoardRepository {
+class BoardRepositoryInMemory {
 
-  constructor (boardMap = []) {
-    this.boardMap = boardMap
+  constructor (boardMap) {
+    this.boardMap = boardMap || []
+  }
+
+  static init (boardMap) {
+    return new BoardRepositoryInMemory(boardMap)
   }
 
   Save (board) {
@@ -27,10 +31,4 @@ class BoardRepository {
 
 }
 
-const NewBoardRepositoryInMemory = () => {
-  return new BoardRepository()
-}
-
-module.exports = {
-  NewBoardRepositoryInMemory
-}
+module.exports = BoardRepositoryInMemory

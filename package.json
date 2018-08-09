@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "nyc mocha --recursive './src/**/*.test.js'",
-    "dev:server": "nodemon index.js",
+    "dev:server": "NODE_ENV=development nodemon index.js",
+    "start": "NODE_ENV=production node index.js",
     "lint": "eslint --env mocha --ext .js src/"
   },
   "repository": {

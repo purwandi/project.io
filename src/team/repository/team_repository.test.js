@@ -1,4 +1,4 @@
-const { NewTeamRepositoryInMemory } = require('./team_repository')
+const TeamRepositoryInMemory = require('./team_repository')
 const chai = require('chai')
 const Team = require('./../domain/team')
 const { Error, RepositoryErrorIsNotInstanceOfTeam } = require('./repository_error')
@@ -6,7 +6,7 @@ const { Error, RepositoryErrorIsNotInstanceOfTeam } = require('./repository_erro
 describe('Team Repository Test Suite', () => {
 
   it('ca not save new team if the parameter is not instanceof team', () => {
-    let repo = NewTeamRepositoryInMemory()
+    let repo = TeamRepositoryInMemory.init()
 
     chai.expect(() => repo.Save(''))
       .to.throw(Error(RepositoryErrorIsNotInstanceOfTeam))
@@ -16,7 +16,7 @@ describe('Team Repository Test Suite', () => {
   })
 
   it('can save new team data into repository', () => {
-    let repo = NewTeamRepositoryInMemory()
+    let repo = TeamRepositoryInMemory.init()
     let team1 = Team.createTeam('Foobar 1', 'foobar-1')
     let team2 = Team.createTeam('Foobar 2', 'foobar-2')
 
@@ -30,7 +30,7 @@ describe('Team Repository Test Suite', () => {
   })
 
   it('can find team by id', () => {
-    let repo = NewTeamRepositoryInMemory()
+    let repo = TeamRepositoryInMemory.init()
     let team1 = Team.createTeam('Foobar 1', 'foobar-1')
     let team2 = Team.createTeam('Foobar 2', 'foobar-2')
     let team3 = Team.createTeam('Foobar 3', 'foobar-3')

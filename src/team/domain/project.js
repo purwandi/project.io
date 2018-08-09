@@ -16,7 +16,8 @@ const ProjectProperty = Model({
   slug: String,
   visibility: visibilityLevel,
   teamUID: String,
-  created_at: Date
+  created_at: Date,
+  update_at: [Date]
 })
 
 class Project extends ProjectProperty {
@@ -39,6 +40,15 @@ class Project extends ProjectProperty {
       teamUID: teamUID,
       created_at: new Date()
     })
+  }
+
+  changeVisibility (visibility) {
+    if (!visibilityLevel.includes(visibility)) {
+      throw Error(ProjectErrorVisibilityInvalidType)
+    }
+
+    this.visibility = visibility
+    this.update_at = new Date()
   }
 
 }

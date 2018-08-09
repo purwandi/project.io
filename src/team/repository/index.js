@@ -1,11 +1,7 @@
-const bRepo = require('./board_repository')
-const tRepo = require('./team_repository')
-const tMRepo = require('./team_member_repository')
-const iRepo = require('./issue_repository')
-
 module.exports = {
-  NewBoardRepositoryInMemory: () => bRepo.NewBoardRepositoryInMemory(),
-  NewTeamRepositoryInMemory: () => tRepo.NewTeamRepositoryInMemory(),
-  NewTeamMemberRepositoryInMemory: () => tMRepo.NewTeamMemberRepositoryInMemory(),
-  NewIssueRepisitoryInMemory: () => iRepo.NewIssueRepositoryInMemory()
+  BoardRepositoryInMemory: require('./board_repository'),
+  TeamRepositoryInMemory: require('./team_repository'),
+  TeamMemberRepositoryInMemory: require('./team_member_repository'),
+  ProjectRepositoryInMemory: require('./project_repository'),
+  IssueRepositoryInMemory: require('./issue_repository')
 }

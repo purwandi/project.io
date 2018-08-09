@@ -3,10 +3,14 @@
 const { Error, RepositoryErrorIsNotInstanceOfIssue } = require('./repository_error')
 const Issue = require('./../domain/issue')
 
-class IssueRepository {
+class IssueRepositoryInMemory {
 
-  constructor (issueMap = []) {
-    this.issueMap = issueMap
+  constructor (issueMap) {
+    this.issueMap = issueMap || []
+  }
+
+  static init (issueMap) {
+    return new IssueRepositoryInMemory(issueMap)
   }
 
   Save (issue) {
@@ -27,10 +31,4 @@ class IssueRepository {
 
 }
 
-const NewIssueRepositoryInMemory = () => {
-  return new IssueRepository()
-}
-
-module.exports = {
-  NewIssueRepositoryInMemory
-}
+module.exports = IssueRepositoryInMemory

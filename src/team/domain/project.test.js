@@ -26,6 +26,29 @@ describe('Project domain test', () => {
         })
     })
 
+    it('can change visibility level', () => {
+      let team = Team.createTeam('Foobar team', 'foobar-team')
+      let project = Project.createProject(team.UID, 'Project', 'project', 'public')
+
+      chai.expect(project)
+        .to.be.include({
+          teamUID: team.UID,
+          name: 'Project',
+          slug: 'project',
+          visibility: 'public'
+        })
+
+      project.changeVisibility('private')
+
+      chai.expect(project)
+        .to.be.include({
+          teamUID: team.UID,
+          name: 'Project',
+          slug: 'project',
+          visibility: 'private'
+        })
+    })
+
     it('should throw error if the team parameter is no instance of Team class', () => {
       chai.expect(() => Project.createProject(''))
         .to.throw(Error(ProjectErrorTeamisNotEmpty))

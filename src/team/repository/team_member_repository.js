@@ -3,10 +3,14 @@
 const TeamMember = require('./../domain/team_member')
 const { Error, RepositoryErrorIsNotInstanceOfTeamMember } = require('./repository_error')
 
-class TeamMemberRepository {
+class TeamMemberRepositoryInMemory {
 
   constructor (teamMemberMap = []) {
     this.teamMemberMap = teamMemberMap
+  }
+
+  static init (issueMap) {
+    return new TeamMemberRepositoryInMemory(issueMap)
   }
 
   Save (teamMember) {
@@ -43,10 +47,4 @@ class TeamMemberRepository {
 
 }
 
-const NewTeamMemberRepositoryInMemory = () => {
-  return new TeamMemberRepository()
-}
-
-module.exports = {
-  NewTeamMemberRepositoryInMemory
-}
+module.exports = TeamMemberRepositoryInMemory

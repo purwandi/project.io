@@ -2,6 +2,7 @@ const RepositoryErrorIsNotInstanceOfTeam = 1
 const RepositoryErrorIsNotInstanceOfTeamMember = 2
 const RepositoryErrorIsNotInstanceOfBoard = 3
 const RepositoryErrorIsNotInstanceOfIssue = 4
+const RepositoryErrorIsNotInstanceOfProject = 5
 
 const Error = (error) => {
   switch (error) {
@@ -13,6 +14,8 @@ const Error = (error) => {
       return 'The parameter is not instance of Board class'
     case RepositoryErrorIsNotInstanceOfIssue:
       return 'The parameter is not instance of Issue class'
+    case RepositoryErrorIsNotInstanceOfProject:
+      return 'The parameter is not instance of Project class'
     default:
       return 'Unrecognized repository error'
   }
@@ -23,5 +26,6 @@ module.exports = {
   RepositoryErrorIsNotInstanceOfTeam,
   RepositoryErrorIsNotInstanceOfTeamMember,
   RepositoryErrorIsNotInstanceOfBoard,
-  RepositoryErrorIsNotInstanceOfIssue
+  RepositoryErrorIsNotInstanceOfIssue,
+  RepositoryErrorIsNotInstanceOfProject
 }
