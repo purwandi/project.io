@@ -32,17 +32,17 @@ class TeamMemberRepositoryInMemory {
   }
 
   FindAllByUserId (userUID) {
-    return this.teamMemberMap.filter(data => data.userUID === userUID)
+    return this.teamMemberMap.filter(data => data.user_uid === userUID)
   }
 
   FindIndex (teamMember) {
     return this.teamMemberMap.findIndex(item => {
-      return item.userUID === teamMember.userUID && item.teamUID === teamMember.teamUID
+      return item.user_uid === teamMember.user_uid && item.team_uid === teamMember.team_uid
     })
   }
 
   FindAllByTeamID (teamUID) {
-    return this.teamMemberMap.filter(data => data.teamUID === teamUID)
+    return this.teamMemberMap.filter(data => data.team_uid === teamUID)
   }
 
 }

@@ -36,7 +36,7 @@ class ProjectRepositoryInMemory {
   }
 
   FindByTeamID (teamUID) {
-    return this.projectMap.filter(data => data.teamUID === teamUID)
+    return this.projectMap.filter(data => data.team_uid === teamUID)
   }
 
   FindByID (projectUID) {

@@ -1,11 +1,11 @@
 const chai = require('chai')
 const User = require('./../domain/user')
-const { NewUserRepositoryInMemory } = require('./user_repository')
+const UserRepositoryInMemory = require('./user_repository')
 const { Error, RepositoryErrorIsNotInstanceOfUser } = require('./repository_error')
 
 describe('User repository test', () => {
   it('can save user data', () => {
-    let repo = NewUserRepositoryInMemory()
+    let repo = UserRepositoryInMemory.init()
     let user1 = User.createUser('foobar1', 'foo-password-1')
     let user2 = User.createUser('foobar2', 'foo-password-2')
     let user3 = User.createUser('foobar3', 'foo-password-3')
@@ -21,7 +21,7 @@ describe('User repository test', () => {
   })
 
   it('can update repository data', () => {
-    let repo = NewUserRepositoryInMemory()
+    let repo = UserRepositoryInMemory.init()
     let user1 = User.createUser('foobar1', 'foo-password-1')
     let user2 = User.createUser('foobar2', 'foo-password-2')
     let user3 = User.createUser('foobar3', 'foo-password-3')
@@ -40,7 +40,7 @@ describe('User repository test', () => {
   })
 
   it('can find user by user uid', () => {
-    let repo = NewUserRepositoryInMemory()
+    let repo = UserRepositoryInMemory.init()
     let user1 = User.createUser('foobar1', 'foo-password-1')
     let user2 = User.createUser('foobar2', 'foo-password-2')
     let user3 = User.createUser('foobar3', 'foo-password-3')
@@ -54,7 +54,7 @@ describe('User repository test', () => {
   })
 
   it('should throw an error user parameter is not instance of user', () => {
-    let repo = NewUserRepositoryInMemory()
+    let repo = UserRepositoryInMemory.init()
 
     chai.expect(() => repo.Save(''))
       .to.throw(Error(RepositoryErrorIsNotInstanceOfUser))

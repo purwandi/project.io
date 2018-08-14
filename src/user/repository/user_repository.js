@@ -9,6 +9,10 @@ class UserRepository {
     this.userMap = users || []
   }
 
+  static init (userMap) {
+    return new UserRepository(userMap)
+  }
+
   Save (user) {
     if (user instanceof User === false) {
       throw Error(RepositoryErrorIsNotInstanceOfUser)
@@ -37,10 +41,4 @@ class UserRepository {
 
 }
 
-const NewUserRepositoryInMemory = () => {
-  return new UserRepository()
-}
-
-module.exports = {
-  NewUserRepositoryInMemory
-}
+module.exports = UserRepository

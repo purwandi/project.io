@@ -1,5 +1,4 @@
 const express = require('express')
-const repository = require('./../repository/user_repository')
 const User = require('./../domain/user')
 
 class UserServer {
@@ -35,8 +34,7 @@ class UserServer {
 
 }
 
-const NewUserServer = () => {
-  let userRepo = repository.NewUserRepositoryInMemory()
+const NewUserServer = (userRepo) => {
   let router = express.Router()
 
   return new UserServer(userRepo, router)

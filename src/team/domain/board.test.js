@@ -24,7 +24,7 @@ describe('Board domain test', () => {
       chai.expect(b)
         .to.be.include({
           name: 'halo',
-          projectUID: '1231-12312'
+          project_uid: '1231-12312'
         })
     })
 
@@ -36,7 +36,7 @@ describe('Board domain test', () => {
         .to.be.include({
           UID: b.UID,
           name: 'Board Only',
-          projectUID: '1231-12312'
+          project_uid: '1231-12312'
         })
     })
   })

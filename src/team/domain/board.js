@@ -9,7 +9,7 @@ const {
 const BoardProperty = Model({
   UID: String,
   name: String,
-  projectUID: String,
+  project_uid: String,
   created_at: Date,
   updated_at: [Date]
 })
@@ -18,18 +18,13 @@ class Board extends BoardProperty {
 
   static createBoard (projectUID, name) {
 
-    if (!projectUID) {
-      throw Error(BoardErrorProjectisNotEmpty)
-    }
-
-    if (!name) {
-      throw Error(BoardErrorNameisNotEmpty)
-    }
+    if (!projectUID) throw Error(BoardErrorProjectisNotEmpty)
+    if (!name) throw Error(BoardErrorNameisNotEmpty)
 
     return new Board({
       UID: uuid.v4(),
       name: name,
-      projectUID: projectUID,
+      project_uid: projectUID,
       created_at: new Date()
     })
   }

@@ -1,12 +1,15 @@
 const IssueErrorTitleisNotEmpty = 1
-const IssueErrorBoardIsNotEmpty = 2
+const IssueErrorProjectIsNotEmpty = 2
+const IssueErrorUserIsNotEmpty = 3
 
 const Error = (error) => {
   switch (error) {
     case IssueErrorTitleisNotEmpty:
       return 'The issue title is not empty'
-    case IssueErrorBoardIsNotEmpty:
-      return 'The board paramater is not empty'
+    case IssueErrorProjectIsNotEmpty:
+      return 'The project paramater is not empty'
+    case IssueErrorUserIsNotEmpty:
+      return 'The created_by issue is not empty'
     default:
       return 'Unrecognized issue error code'
   }
@@ -15,5 +18,6 @@ const Error = (error) => {
 module.exports = {
   Error,
   IssueErrorTitleisNotEmpty,
-  IssueErrorBoardIsNotEmpty
+  IssueErrorProjectIsNotEmpty,
+  IssueErrorUserIsNotEmpty
 }

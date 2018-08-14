@@ -12,7 +12,7 @@ const {
 describe('Team member domain test', () => {
   describe('Team member unit testing suite', () => {
 
-    it('should throw error if the userUID is empty', () => {
+    it('should throw error if the user_uid is empty', () => {
       expect(() => TeamMember.createTeamMember())
         .to.throw(Error(TeamMemberErrorUserUIDisNotEmpty))
     })
@@ -32,8 +32,8 @@ describe('Team member domain test', () => {
       let member = TeamMember.createTeamMember('12323-123123-12321', team.UID, 'admin')
 
       expect(member).to.include({
-        userUID: '12323-123123-12321',
-        teamUID: team.UID,
+        user_uid: '12323-123123-12321',
+        team_uid: team.UID,
         role: 'admin'
       })
     })
@@ -44,8 +44,8 @@ describe('Team member domain test', () => {
       member.changeRole('member')
       expect(member)
         .to.be.include({
-          userUID: '12323-123123-12321',
-          teamUID: team.UID,
+          user_uid: '12323-123123-12321',
+          team_uid: team.UID,
           role: 'member'
         })
     })

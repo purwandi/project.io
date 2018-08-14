@@ -1,4 +1,5 @@
 const teamRepository = require('./src/team/repository')
+const userRepository = require('./src/user/repository')
 
 module.exports = () => {
 
@@ -6,6 +7,8 @@ module.exports = () => {
   let projectRepo = teamRepository.ProjectRepositoryInMemory.init()
   let boardRepo = teamRepository.BoardRepositoryInMemory.init()
   let issueRepo = teamRepository.IssueRepositoryInMemory.init()
+
+  let userRepo = userRepository.UserRepository.init()
 
   if (process.env.DEMO_MODE === "true") {
     console.log('=======================================')
@@ -18,6 +21,13 @@ module.exports = () => {
     const Project = teamDomain.Project 
     const Board = teamDomain.Board
     const Issue = teamDomain.Issue
+
+    const userDomain = require('./src/user/domain')
+    const User = userDomain.User
+
+    // user creations
+    let user1 = User.createUser('foobar', 'password')
+    userRepo.Save(user1)
 
     // team creations
     let team1 = Team.createTeam('Foobar 1', 'foobar-1')
@@ -38,7 +48,7 @@ module.exports = () => {
     boardRepo.Save(board3)
 
     // issue creations
-    let issue1 = Issue.createIssue(board1.UID, 'Halo this isue #1', 'This is issue body')
+    let issue1 = Issue.createIssue(project1.UID, 'Halo this isue #1', 'This is issue body')
     issueRepo.Save(issue1)
   }
 
@@ -46,6 +56,7 @@ module.exports = () => {
     teamRepo,
     projectRepo,
     boardRepo,
-    issueRepo
+    issueRepo,
+    userRepo
   }
 }

@@ -2,7 +2,8 @@ const { Model } = require('objectmodel')
 const {
   Error,
   IssueErrorTitleisNotEmpty,
-  IssueErrorBoardIsNotEmpty
+  IssueErrorProjectIsNotEmpty,
+  IssueErrorUserIsNotEmpty
 } = require('./issue_error')
 const uuid = require('uuid')
 
@@ -10,27 +11,25 @@ const IssueProperty = Model({
   UID: String,
   title: String,
   body: [String],
-  boardUID: String,
+  project_uid: String,
+  created_by: String,
   created_at: Date,
   updated_at: [Date]
 })
 
 class Issue extends IssueProperty {
 
-  static createIssue (boardUID, title, body) {
-    if (!boardUID) {
-      throw Error(IssueErrorBoardIsNotEmpty)
-    }
-
-    if (!title) {
-      throw Error(IssueErrorTitleisNotEmpty)
-    }
+  static createIssue (projectUID, userUID, title, body) {
+    if (!projectUID)  throw Error(IssueErrorProjectIsNotEmpty)
+    if (!userUID) throw Error(IssueErrorUserIsNotEmpty)
+    if (!title) throw Error(IssueErrorTitleisNotEmpty)
 
     return new Issue({
       UID: uuid.v4(),
       title: title,
       body: body,
-      boardUID: boardUID,
+      project_uid: projectUID,
+      created_by: userUID,
       created_at: new Date()
     })
   }

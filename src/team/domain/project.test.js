@@ -19,7 +19,7 @@ describe('Project domain test', () => {
 
       chai.expect(project)
         .to.be.include({
-          teamUID: team.UID,
+          team_uid: team.UID,
           name: 'Project',
           slug: 'project',
           visibility: 'public'
@@ -32,7 +32,7 @@ describe('Project domain test', () => {
 
       chai.expect(project)
         .to.be.include({
-          teamUID: team.UID,
+          team_uid: team.UID,
           name: 'Project',
           slug: 'project',
           visibility: 'public'
@@ -42,7 +42,7 @@ describe('Project domain test', () => {
 
       chai.expect(project)
         .to.be.include({
-          teamUID: team.UID,
+          team_uid: team.UID,
           name: 'Project',
           slug: 'project',
           visibility: 'private'

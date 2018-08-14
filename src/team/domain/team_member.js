@@ -9,8 +9,8 @@ const {
 
 const RoleType = ['admin', 'member']
 const TeamMemberProperty = {
-  userUID: String,
-  teamUID: String,
+  user_uid: String,
+  team_uid: String,
   role: RoleType,
   created_at: Date
 }
@@ -26,8 +26,8 @@ class TeamMember extends Model(TeamMemberProperty) {
     }
 
     return new TeamMember({
-      userUID,
-      teamUID,
+      user_uid: userUID,
+      team_uid: teamUID,
       role,
       created_at: new Date()
     })

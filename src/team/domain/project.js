@@ -15,7 +15,7 @@ const ProjectProperty = Model({
   name: String,
   slug: String,
   visibility: visibilityLevel,
-  teamUID: String,
+  team_uid: String,
   created_at: Date,
   update_at: [Date]
 })
@@ -37,7 +37,7 @@ class Project extends ProjectProperty {
       name: name,
       slug: slug,
       visibility: visibility,
-      teamUID: teamUID,
+      team_uid: teamUID,
       created_at: new Date()
     })
   }

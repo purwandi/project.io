@@ -21,7 +21,7 @@ describe('Issue Repository Test Suite', () => {
     let repo = IssueRepositoryInMemory.init()
     let team = Team.createTeam('Foobar 1', 'foobar-1')
     let board = Board.createBoard(team.UID, 'Awesome board')
-    let issue = Issue.createIssue(board.UID, 'New issue')
+    let issue = Issue.createIssue(board.UID, 'user-1', 'New issue')
 
     repo.Save(issue)
 
@@ -36,9 +36,9 @@ describe('Issue Repository Test Suite', () => {
     let team = Team.createTeam('Foobar 1', 'foobar-1')
     let board = Board.createBoard(team.UID, 'Awesome board')
 
-    let issue1 = Issue.createIssue(board.UID, 'New title issue', 'Hallo body issuees')
-    let issue2 = Issue.createIssue(board.UID, 'New title issue', 'Hallo body issuees')
-    let issue3 = Issue.createIssue(board.UID, 'New title issue', 'Hallo body issuees')
+    let issue1 = Issue.createIssue(board.UID, 'user-1', 'New title issue', 'Hallo body issuees')
+    let issue2 = Issue.createIssue(board.UID, 'user-1','New title issue', 'Hallo body issuees')
+    let issue3 = Issue.createIssue(board.UID, 'user-2', 'New title issue', 'Hallo body issuees')
 
     repo.Save(issue1)
     repo.Save(issue2)
@@ -48,5 +48,24 @@ describe('Issue Repository Test Suite', () => {
 
     chai.expect(data)
       .to.be.eql(issue2)
+  })
+
+  it('can find all issue by created by', () => {
+    let repo = IssueRepositoryInMemory.init()
+    let team = Team.createTeam('Foobar 1', 'foobar-1')
+    let board = Board.createBoard(team.UID, 'Awesome board')
+
+    let issue1 = Issue.createIssue(board.UID, 'user-1', 'New title issue', 'Hallo body issuees')
+    let issue2 = Issue.createIssue(board.UID, 'user-1','New title issue', 'Hallo body issuees')
+    let issue3 = Issue.createIssue(board.UID, 'user-2', 'New title issue', 'Hallo body issuees')
+
+    repo.Save(issue1)
+    repo.Save(issue2)
+    repo.Save(issue3)
+
+    let data = repo.FindAllByCreatedBy('user-2')
+
+    chai.expect(data)
+      .to.be.eql([issue3])
   })
 })

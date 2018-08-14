@@ -1,16 +1,20 @@
 const chalk = require('chalk')
 const express = require('express')
 const initApp = require('./config')
-const storage = require('./persistance')
+const storage = require('./persistence')
 
 require('dotenv').config()
 
 const app = initApp(express)
-const persistance = storage()
+const persistence = storage()
 
 const sTeam  = require('./src/team/server/team_server')
-const TeamServer = sTeam.NewTeamServer(persistance.teamRepo, persistance.boardRepo, persistance.issueRepo)
+const TeamServer = sTeam.NewTeamServer(persistence.teamRepo, persistence.boardRepo, persistence.issueRepo)
 app.use('/teams', TeamServer.mount())
+
+const sUser = require('./src/user/server/')
+const UserServer = sUser.NewUserServer(persistence.userRepo)
+app.use('/users', UserServer.mount())
 
 app.listen(app.get('port'), () => {
   console.log(
