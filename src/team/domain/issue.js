@@ -20,7 +20,7 @@ const IssueProperty = Model({
 class Issue extends IssueProperty {
 
   static createIssue (projectUID, userUID, title, body) {
-    if (!projectUID)  throw Error(IssueErrorProjectIsNotEmpty)
+    if (!projectUID) throw Error(IssueErrorProjectIsNotEmpty)
     if (!userUID) throw Error(IssueErrorUserIsNotEmpty)
     if (!title) throw Error(IssueErrorTitleisNotEmpty)
 

@@ -37,7 +37,7 @@ describe('Issue Repository Test Suite', () => {
     let board = Board.createBoard(team.UID, 'Awesome board')
 
     let issue1 = Issue.createIssue(board.UID, 'user-1', 'New title issue', 'Hallo body issuees')
-    let issue2 = Issue.createIssue(board.UID, 'user-1','New title issue', 'Hallo body issuees')
+    let issue2 = Issue.createIssue(board.UID, 'user-1', 'New title issue', 'Hallo body issuees')
     let issue3 = Issue.createIssue(board.UID, 'user-2', 'New title issue', 'Hallo body issuees')
 
     repo.Save(issue1)
@@ -56,7 +56,7 @@ describe('Issue Repository Test Suite', () => {
     let board = Board.createBoard(team.UID, 'Awesome board')
 
     let issue1 = Issue.createIssue(board.UID, 'user-1', 'New title issue', 'Hallo body issuees')
-    let issue2 = Issue.createIssue(board.UID, 'user-1','New title issue', 'Hallo body issuees')
+    let issue2 = Issue.createIssue(board.UID, 'user-1', 'New title issue', 'Hallo body issuees')
     let issue3 = Issue.createIssue(board.UID, 'user-2', 'New title issue', 'Hallo body issuees')
 
     repo.Save(issue1)
