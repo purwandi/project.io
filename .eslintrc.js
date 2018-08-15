@@ -4,10 +4,13 @@ module.exports = {
     parser: 'babel-eslint'
   },
   env: {
-    browser: true
+    browser: true,
+    node: true
   },
   extends: [
-    'standard'
+    "standard",
+    "plugin:vue/essential",
+    "eslint:recommended"
   ],
   rules: {
     'generator-star-spacing': 'off',

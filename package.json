@@ -1,28 +1,15 @@
 {
   "name": "status.io",
   "version": "0.0.1",
-  "description": "Freak website monitoring tools",
-  "main": "server.js",
   "scripts": {
     "test": "nyc mocha --recursive './src/**/*.test.js'",
+    "lint": "eslint --env mocha --ext .js src/",
+    "front:serve": "vue-cli-service serve resources/main.js",
+    "front:build": "rm -rf public/* && cp -r resources/assets/img public/img && cp resources/manifest.json public/ && vue-cli-service build --no-clean resources/main.js",
+    "front:lint": "vue-cli-service lint",
     "dev:server": "NODE_ENV=development nodemon index.js",
-    "start": "NODE_ENV=production node index.js",
-    "lint": "eslint --env mocha --ext .js src/"
+    "start": "NODE_ENV=production node index.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/purwandi/status.io.git"
-  },
-  "keywords": [
-    "monitoring",
-    "nodejs"
-  ],
-  "author": "Purwandi <me@purwandi.id>",
-  "license": "Apache-2.0",
-  "bugs": {
-    "url": "https://github.com/purwandi/status.io/issues"
-  },
-  "homepage": "https://github.com/purwandi/status.io#readme",
   "dependencies": {
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
@@ -40,10 +27,15 @@
     "uuid": "^3.3.2"
   },
   "devDependencies": {
+    "@vue/cli-plugin-babel": "^3.0.0",
+    "@vue/cli-plugin-eslint": "^3.0.0",
+    "@vue/cli-plugin-pwa": "^3.0.0",
+    "@vue/cli-service": "^3.0.0",
     "chai": "^4.1.2",
     "cucumber": "^4.2.1",
     "eslint": "^5.3.0",
     "eslint-config-standard": "^12.0.0-alpha.0",
+    "eslint-loader": "^2.1.0",
     "eslint-plugin-import": "^2.13.0",
     "eslint-plugin-node": "^7.0.1",
     "eslint-plugin-promise": "^3.8.0",
@@ -51,6 +43,35 @@
     "mocha": "^5.2.0",
     "morgan": "^1.9.0",
     "nodemon": "^1.17.5",
-    "nyc": "^12.0.2"
-  }
+    "nyc": "^12.0.2",
+    "register-service-worker": "^1.0.0",
+    "vue": "^2.5.17",
+    "vue-template-compiler": "^2.5.17"
+  },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {}
+    }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ],
+  "keywords": [
+    "monitoring",
+    "nodejs"
+  ],
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/purwandi/status.io/issues"
+  },
+  "homepage": "https://github.com/purwandi/status.io#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/purwandi/status.io.git"
+  },
+  "main": "server.js",
+  "description": "Freak website monitoring tools",
+  "author": "Purwandi <me@purwandi.id>"
 }
