@@ -30,10 +30,12 @@ module.exports = () => {
     userRepo.Save(user1)
 
     // team creations
-    let team1 = Team.createTeam('Foobar 1', 'foobar-1')
-    let team2 = Team.createTeam('Foobar 2', 'foobar-2')
+    let team1 = Team.createTeam('Gojek Indonesia', 'gojek-indonesia')
+    let team2 = Team.createTeam('Tokopedia', 'tokopedia')
+    let team3 = Team.createTeam('Traveloka', 'traveloka')
     teamRepo.Save(team1)
     teamRepo.Save(team2)
+    teamRepo.Save(team3)
 
     // project creations
     let project1 = Project.createProject(team1.UID, 'Foobar project', 'foobar-project', 'private')
@@ -49,7 +51,9 @@ module.exports = () => {
 
     // issue creations
     let issue1 = Issue.createIssue(project1.UID, 'Halo this isue #1', 'This is issue body')
+    let issue2 = Issue.createIssue(project1.UID, 'Halo this isue #2', 'This is issue body')
     issueRepo.Save(issue1)
+    issueRepo.Save(issue2)
   }
 
   return {

@@ -29,6 +29,10 @@ class IssueRepositoryInMemory {
     return this.issueMap.filter(data => data.created_by === userUId)
   }
 
+  FindAllByProjectUID (projectUID) {
+    return this.issueMap.filter(data => data.project_uid === projectUID)
+  }
+
   FindByID (issueUID) {
     return this.issueMap.find(data => data.UID === issueUID)
   }

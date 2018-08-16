@@ -4,8 +4,8 @@
   "scripts": {
     "test": "nyc mocha --recursive './src/**/*.test.js'",
     "lint": "eslint --env mocha --ext .js src/",
-    "front:serve": "vue-cli-service serve resources/main.js",
-    "front:build": "rm -rf public/* && cp -r resources/assets/img public/img && cp resources/manifest.json public/ && vue-cli-service build --no-clean resources/main.js",
+    "front:serve": "NODE_ENV=development vue-cli-service serve resources/main.js",
+    "front:build": "rm -rf public/* && cp -r resources/assets/img public/img && cp resources/manifest.json public/ && NODE_ENV=production vue-cli-service build --no-clean resources/main.js",
     "front:lint": "vue-cli-service lint",
     "dev:server": "NODE_ENV=development nodemon index.js",
     "start": "NODE_ENV=production node index.js"
@@ -27,12 +27,14 @@
     "uuid": "^3.3.2"
   },
   "devDependencies": {
+    "@fullhuman/postcss-purgecss": "*",
     "@vue/cli-plugin-babel": "^3.0.0",
     "@vue/cli-plugin-eslint": "^3.0.0",
     "@vue/cli-plugin-pwa": "^3.0.0",
     "@vue/cli-service": "^3.0.0",
     "chai": "^4.1.2",
     "cucumber": "^4.2.1",
+    "dotenv-webpack": "^1.5.7",
     "eslint": "^5.3.0",
     "eslint-config-standard": "^12.0.0-alpha.0",
     "eslint-loader": "^2.1.0",
@@ -40,18 +42,23 @@
     "eslint-plugin-node": "^7.0.1",
     "eslint-plugin-promise": "^3.8.0",
     "eslint-plugin-standard": "^3.1.0",
+    "eslint-plugin-vue": "^5.0.0-beta.3",
+    "glob-all": "^3.1.0",
     "mocha": "^5.2.0",
     "morgan": "^1.9.0",
     "nodemon": "^1.17.5",
     "nyc": "^12.0.2",
+    "postcss-import": "^12.0.0",
+    "pug": "^2.0.3",
+    "pug-plain-loader": "^1.0.0",
+    "purgecss-webpack-plugin": "^1.2.1",
     "register-service-worker": "^1.0.0",
+    "tailwindcss": "*",
     "vue": "^2.5.17",
-    "vue-template-compiler": "^2.5.17"
-  },
-  "postcss": {
-    "plugins": {
-      "autoprefixer": {}
-    }
+    "vue-material-design-icons": "^1.6.0",
+    "vue-router": "^3.0.1",
+    "vue-template-compiler": "^2.5.17",
+    "vuex": "^3.0.1"
   },
   "browserslist": [
     "> 1%",
@@ -62,16 +69,16 @@
     "monitoring",
     "nodejs"
   ],
-  "license": "Apache-2.0",
+  "author": "Purwandi <me@purwandi.id>",
   "bugs": {
-    "url": "https://github.com/purwandi/status.io/issues"
+    "url": "https://github.com/purwandi/project.io/issues"
   },
-  "homepage": "https://github.com/purwandi/status.io#readme",
+  "homepage": "https://github.com/purwandi/project.io#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/purwandi/status.io.git"
+    "url": "git+https://github.com/purwandi/project.io.git"
   },
   "main": "server.js",
-  "description": "Freak website monitoring tools",
-  "author": "Purwandi <me@purwandi.id>"
+  "description": "Manage issues like a boss",
+  "license": "Apache-2.0"
 }

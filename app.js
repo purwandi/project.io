@@ -1,10 +1,11 @@
+const express = require('express')
 const bodyParser = require('body-parser')
 const compression = require('compression')
 const monitory = require('express-status-monitor')
 const logger = require('morgan')
 const path = require('path')
 
-module.exports = (express) => {
+module.exports = () => {
   const app =  new express()
 
   app.disable('x-powered-by')
@@ -16,6 +17,12 @@ module.exports = (express) => {
   app.use(bodyParser.json())
   app.use(bodyParser.urlencoded({ extended: true }))
   app.use(express.static(path.join(__dirname, '/public'), { maxAge: 3600 }))
+
+  app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*")
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
+    next()
+  })
 
   return app
 }
