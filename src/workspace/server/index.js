@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 
-const WorkspaceRouter = (persistence) => {
+module.exports = (persistence) => {
 
   router.use('/', require('./workspace_server')(persistence.workspaceRepo))
   router.use('/:workspace/projects', require('./project_server')(persistence.projectRepo))
@@ -10,5 +10,3 @@ const WorkspaceRouter = (persistence) => {
 
   return router
 }
-
-module.exports = WorkspaceRouter

@@ -11,7 +11,9 @@ class WorkspaceServer {
   mount () {
     this.router.get('/', this.FindAll.bind(this))
     this.router.post('/', this.Save.bind(this))
-    this.router.get('/:workspaceUID', this.FindByUID.bind(this))
+    this.router.get('/:workspace', this.FindByUID.bind(this))
+    this.router.put('/:workspace', this.Update.bind(this))
+    this.router.delete('/:workspace', this.Remove.bind(this))
 
     return this.router
   }
@@ -39,11 +41,37 @@ class WorkspaceServer {
 
   FindByUID (req, res) {
     try {
-      let t = this.workspaceRepo.FindById(req.params.workspaceUID)
-      return res.json({ data: t, params: req.params })
+      let workspace = this.workspaceRepo.FindByUID(req.params.workspace)
+
+      return res.json({ data: workspace })
     } catch (error) {
-      return res.status(500).json()
+      return res.status(500).json({ error })
     }
+  }
+
+  Update (req, res) {
+    try {
+      let workspace = this.workspaceRepo.FindByUID(req.params.workspace)
+      workspace.changeName(req.body.name)
+
+      this.workspaceRepo.Save(workspace)
+
+      return res.json({ data: workspace })
+    } catch (error) {
+      return res.status(500).json({ error })
+    }
+  }
+
+  Remove (req, res) {
+    try {
+      let workspace = this.workspaceRepo.FindByUID(req.params.workspace)
+      this.workspaceRepo.Remove(workspace)
+
+      return res.json()
+    } catch (error) {
+      return res.status(500).json({ error })
+    }
+
   }
 
 }

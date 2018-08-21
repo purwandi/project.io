@@ -1,7 +1,7 @@
 'use strict'
 
 const Workspace = require('./../domain/workspace')
-const { Error, RepositoryErrorIsNotInstanceOfWorkspace } = require('./repository_error')
+const { Error, RepositoryErrorIsNotInstanceOfWorkspace, RepositoryErrorWorkspaceisNotFound } = require('./repository_error')
 
 class WorkspaceRepositoryInMemory {
 
@@ -18,15 +18,39 @@ class WorkspaceRepositoryInMemory {
       throw Error(RepositoryErrorIsNotInstanceOfWorkspace)
     }
 
-    this.workspaceMap.push(workspace)
+    let index = this.FindIndex(workspace)
+
+    if (index > -1) {
+      this.workspaceMap[index] = workspace
+    } else {
+      this.workspaceMap.push(workspace)
+    }
+  }
+
+  FindIndex (workspace) {
+    return this.workspaceMap.findIndex(item => item.UID === workspace.UID)
   }
 
   FindAll () {
     return this.workspaceMap
   }
 
-  FindById (uid) {
-    return this.workspaceMap.find(data => data.UID === uid)
+  FindByUID (uid) {
+    let workspace = this.workspaceMap.find(data => data.UID === uid)
+
+    if (!workspace) throw Error(RepositoryErrorWorkspaceisNotFound)
+
+    return workspace
+  }
+
+  Remove (workspace) {
+    let index = this.FindIndex(workspace)
+
+    if (index > -1) {
+      this.workspaceMap.splice(index, 1)
+      return true
+    }
+    throw Error(RepositoryErrorWorkspaceisNotFound)
   }
 
 }

@@ -33,6 +33,10 @@ class Workspace extends WorkspaceProperty {
     })
   }
 
+  changeName (name) {
+    this.name = name
+  }
+
 }
 
 module.exports = Workspace
