@@ -8,7 +8,7 @@ class ProjectServer {
   }
 
   mount () {
-    this.router.get('/:teamUID/projects', this.FindAll.bind(this))
+    this.router.get('/', this.FindAll.bind(this))
 
     return this.router
   }
@@ -26,8 +26,7 @@ class ProjectServer {
 
 }
 
-const NewProjectServer = (projectRepo) => {
-  return new ProjectServer(projectRepo, express.Router())
+module.exports = (projectRepo) => {
+  let router = express.Router()
+  return (new ProjectServer(projectRepo, router)).mount()
 }
-
-module.exports = NewProjectServer

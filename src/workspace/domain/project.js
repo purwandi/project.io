@@ -1,7 +1,7 @@
 const { Model } = require('objectmodel')
 const {
   Error,
-  ProjectErrorTeamisNotEmpty,
+  ProjectErrorWorkspaceisNotEmpty,
   ProjectErrorNameisNotEmpty,
   ProjectErrorSlugisNotEmpty,
   ProjectErrorVisibilityisNotEmpty,
@@ -15,15 +15,15 @@ const ProjectProperty = Model({
   name: String,
   slug: String,
   visibility: visibilityLevel,
-  team_uid: String,
+  workspace_uid: String,
   created_at: Date,
   update_at: [Date]
 })
 
 class Project extends ProjectProperty {
 
-  static createProject (teamUID, name, slug, visibility) {
-    if (!teamUID) throw Error(ProjectErrorTeamisNotEmpty)
+  static createProject (workspaceUID, name, slug, visibility) {
+    if (!workspaceUID) throw Error(ProjectErrorWorkspaceisNotEmpty)
     if (!name) throw Error(ProjectErrorNameisNotEmpty)
     if (!slug) throw Error(ProjectErrorSlugisNotEmpty)
     if (!visibility) throw Error(ProjectErrorVisibilityisNotEmpty)
@@ -37,7 +37,7 @@ class Project extends ProjectProperty {
       name: name,
       slug: slug,
       visibility: visibility,
-      team_uid: teamUID,
+      workspace_uid: workspaceUID,
       created_at: new Date()
     })
   }

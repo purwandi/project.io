@@ -8,7 +8,7 @@ class IssueServer {
   }
 
   mount () {
-    this.router.get('/:teamUID/projects/:projectUID/issues', this.FindAll.bind(this))
+    this.router.get('/', this.FindAll.bind(this))
 
     return this.router
   }
@@ -26,8 +26,7 @@ class IssueServer {
 
 }
 
-const NewIssueServer = (issueRepo) => {
-  return new IssueServer(issueRepo, express.Router())
+module.exports = (issueRepo) => {
+  let router = express.Router()
+  return new IssueServer(issueRepo, router).mount()
 }
-
-module.exports = NewIssueServer

@@ -1,9 +1,9 @@
 const chai = require('chai')
 const Project = require('./project')
-const Team = require('./team')
+const Workspace = require('./workspace')
 const {
   Error,
-  ProjectErrorTeamisNotEmpty,
+  ProjectErrorWorkspaceisNotEmpty,
   ProjectErrorNameisNotEmpty,
   ProjectErrorSlugisNotEmpty,
   ProjectErrorVisibilityisNotEmpty,
@@ -14,12 +14,12 @@ describe('Project domain test', () => {
   describe('Project domain unit test suite', () => {
 
     it('can create project', () => {
-      let team = Team.createTeam('Foobar team', 'foobar-team')
-      let project = Project.createProject(team.UID, 'Project', 'project', 'public')
+      let workspace = Workspace.createWorkspace('Foobar workspace', 'foobar-workspace')
+      let project = Project.createProject(workspace.UID, 'Project', 'project', 'public')
 
       chai.expect(project)
         .to.be.include({
-          team_uid: team.UID,
+          workspace_uid: workspace.UID,
           name: 'Project',
           slug: 'project',
           visibility: 'public'
@@ -27,12 +27,12 @@ describe('Project domain test', () => {
     })
 
     it('can change visibility level', () => {
-      let team = Team.createTeam('Foobar team', 'foobar-team')
-      let project = Project.createProject(team.UID, 'Project', 'project', 'public')
+      let workspace = Workspace.createWorkspace('Foobar workspace', 'foobar-workspace')
+      let project = Project.createProject(workspace.UID, 'Project', 'project', 'public')
 
       chai.expect(project)
         .to.be.include({
-          team_uid: team.UID,
+          workspace_uid: workspace.UID,
           name: 'Project',
           slug: 'project',
           visibility: 'public'
@@ -42,16 +42,16 @@ describe('Project domain test', () => {
 
       chai.expect(project)
         .to.be.include({
-          team_uid: team.UID,
+          workspace_uid: workspace.UID,
           name: 'Project',
           slug: 'project',
           visibility: 'private'
         })
     })
 
-    it('should throw error if the team parameter is no instance of Team class', () => {
+    it('should throw error if the workspace parameter is no instance of Workspace class', () => {
       chai.expect(() => Project.createProject(''))
-        .to.throw(Error(ProjectErrorTeamisNotEmpty))
+        .to.throw(Error(ProjectErrorWorkspaceisNotEmpty))
     })
 
     it('should throw error if the name is blank', () => {
@@ -70,11 +70,11 @@ describe('Project domain test', () => {
     })
 
     it('should throw error if the visibility is not private or public', () => {
-      let team = Team.createTeam('Foobar team', 'foobar-team')
-      chai.expect(() => Project.createProject(team, 'Foobar project', 'foobar-project', 'none'))
+      let workspace = Workspace.createWorkspace('Foobar workspace', 'foobar-workspace')
+      chai.expect(() => Project.createProject(workspace, 'Foobar project', 'foobar-project', 'none'))
         .to.throw(Error(ProjectErrorVisibilityInvalidType))
 
-      let project1 = Project.createProject(team.UID, 'Foobar project', 'foobar-project', 'private')
+      let project1 = Project.createProject(workspace.UID, 'Foobar project', 'foobar-project', 'private')
       chai.expect(project1)
         .to.be.include({
           name: 'Foobar project',
@@ -82,7 +82,7 @@ describe('Project domain test', () => {
           visibility: 'private'
         })
 
-      let project2 = Project.createProject(team.UID, 'Foobar project', 'foobar-project', 'public')
+      let project2 = Project.createProject(workspace.UID, 'Foobar project', 'foobar-project', 'public')
       chai.expect(project2)
         .to.be.include({
           name: 'Foobar project',

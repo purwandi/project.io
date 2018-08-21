@@ -1,44 +1,46 @@
-const teamRepository = require('./src/team/repository')
-const userRepository = require('./src/user/repository')
+const workspaceRepository = require('./workspace/repository')
+const userRepository = require('./user/repository')
 
 module.exports = () => {
 
-  let teamRepo = teamRepository.TeamRepositoryInMemory.init()
-  let projectRepo = teamRepository.ProjectRepositoryInMemory.init()
-  let boardRepo = teamRepository.BoardRepositoryInMemory.init()
-  let issueRepo = teamRepository.IssueRepositoryInMemory.init()
+  let workspaceRepo = workspaceRepository.WorkspaceRepositoryInMemory.init()
+  let projectRepo = workspaceRepository.ProjectRepositoryInMemory.init()
+  let boardRepo = workspaceRepository.BoardRepositoryInMemory.init()
+  let issueRepo = workspaceRepository.IssueRepositoryInMemory.init()
 
   let userRepo = userRepository.UserRepository.init()
 
   if (process.env.DEMO_MODE === "true") {
+    /*eslint-disable */
     console.log('=======================================')
     console.log('*          Demo Mode enabled          *')
     console.log('=======================================')
+    /*eslint-enable */
 
     // domain definition
-    const teamDomain = require('./src/team/domain')
-    const Team = teamDomain.Team
-    const Project = teamDomain.Project 
-    const Board = teamDomain.Board
-    const Issue = teamDomain.Issue
+    const workspaceDomain = require('./workspace/domain')
+    const Workspace = workspaceDomain.Workspace
+    const Project = workspaceDomain.Project
+    const Board = workspaceDomain.Board
+    const Issue = workspaceDomain.Issue
 
-    const userDomain = require('./src/user/domain')
+    const userDomain = require('./user/domain')
     const User = userDomain.User
 
     // user creations
     let user1 = User.createUser('foobar', 'password')
     userRepo.Save(user1)
 
-    // team creations
-    let team1 = Team.createTeam('Gojek Indonesia', 'gojek-indonesia')
-    let team2 = Team.createTeam('Tokopedia', 'tokopedia')
-    let team3 = Team.createTeam('Traveloka', 'traveloka')
-    teamRepo.Save(team1)
-    teamRepo.Save(team2)
-    teamRepo.Save(team3)
+    // workspace creations
+    let workspace1 = Workspace.createWorkspace('Gojek Indonesia', 'gojek-indonesia')
+    let workspace2 = Workspace.createWorkspace('Tokopedia', 'tokopedia')
+    let workspace3 = Workspace.createWorkspace('Traveloka', 'traveloka')
+    workspaceRepo.Save(workspace1)
+    workspaceRepo.Save(workspace2)
+    workspaceRepo.Save(workspace3)
 
     // project creations
-    let project1 = Project.createProject(team1.UID, 'Foobar project', 'foobar-project', 'private')
+    let project1 = Project.createProject(workspace1.UID, 'Foobar project', 'foobar-project', 'private')
     projectRepo.Save(project1)
 
     // board creations
@@ -65,7 +67,7 @@ module.exports = () => {
   }
 
   return {
-    teamRepo,
+    workspaceRepo,
     projectRepo,
     boardRepo,
     issueRepo,

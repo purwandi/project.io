@@ -1,27 +1,14 @@
 const chalk = require('chalk')
-const initApp = require('./app')
-const storage = require('./persistence')
+const initApp = require('./src/app')
+const storage = require('./src/persistence')
 
 require('dotenv').config()
 
 const app = initApp()
 const persistence = storage()
 
-const sTeam  = require('./src/team/server/team_server')
-const TeamServer = sTeam.NewTeamServer(persistence.teamRepo, persistence.boardRepo, persistence.issueRepo)
-app.use('/teams', TeamServer.mount())
-
-const sProject = require('./src/team/server/project_server')
-const ProjectServer = sProject(persistence.projectRepo)
-app.use('/teams', ProjectServer.mount())
-
-const sIssue = require('./src/team/server/issue_server')
-const IssueServer = sIssue(persistence.issueRepo)
-app.use('/teams', IssueServer.mount())
-
-const sUser = require('./src/user/server/')
-const UserServer = sUser.NewUserServer(persistence.userRepo)
-app.use('/users', UserServer.mount())
+app.use('/workspaces', require('./src/workspace/server/')(persistence))
+app.use('/users', require('./src/user/server/')(persistence))
 
 app.listen(app.get('port'), () => {
   console.log(

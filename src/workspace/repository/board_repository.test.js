@@ -1,6 +1,6 @@
 const BoardRepositoryInMemory = require('./board_repository')
 const chai = require('chai')
-const Team = require('./../domain/team')
+const Workspace = require('./../domain/workspace')
 const Board = require('./../domain/board')
 const { Error, RepositoryErrorIsNotInstanceOfBoard } = require('./repository_error')
 
@@ -18,8 +18,8 @@ describe('Board Repository Test Suite', () => {
 
   it('can save new board data into repository', () => {
     let repo = BoardRepositoryInMemory.init()
-    let team = Team.createTeam('Foobar 1', 'foobar-1')
-    let board = Board.createBoard(team.UID, 'Awesome board')
+    let workspace = Workspace.createWorkspace('Foobar 1', 'foobar-1')
+    let board = Board.createBoard(workspace.UID, 'Awesome board')
 
     repo.Save(board)
 
@@ -29,14 +29,14 @@ describe('Board Repository Test Suite', () => {
       .to.be.eql([ board ])
   })
 
-  it('can find team by id', () => {
+  it('can find workspace by id', () => {
     let repo = BoardRepositoryInMemory.init()
-    let team1 = Team.createTeam('Foobar 1', 'foobar-1')
-    let team2 = Team.createTeam('Foobar 2', 'foobar-2')
+    let workspace1 = Workspace.createWorkspace('Foobar 1', 'foobar-1')
+    let workspace2 = Workspace.createWorkspace('Foobar 2', 'foobar-2')
 
-    let board1 = Board.createBoard(team1.UID, 'Awesome board')
-    let board2 = Board.createBoard(team2.UID, 'Awesome board')
-    let board3 = Board.createBoard(team2.UID, 'Awesome board')
+    let board1 = Board.createBoard(workspace1.UID, 'Awesome board')
+    let board2 = Board.createBoard(workspace2.UID, 'Awesome board')
+    let board3 = Board.createBoard(workspace2.UID, 'Awesome board')
 
     repo.Save(board1)
     repo.Save(board2)

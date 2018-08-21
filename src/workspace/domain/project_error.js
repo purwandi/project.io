@@ -2,7 +2,7 @@ const ProjectErrorNameisNotEmpty = 1
 const ProjectErrorSlugIsNotEmpty = 2
 const ProjectErrorVisibilityisNotEmpty = 3
 const ProjectErrorVisibilityInvalidType = 4
-const ProjectErrorTeamisNotEmpty = 5
+const ProjectErrorWorkspaceisNotEmpty = 5
 
 const Error = (error) => {
   switch (error) {
@@ -14,7 +14,7 @@ const Error = (error) => {
       return 'The project visibility is not empty'
     case ProjectErrorVisibilityInvalidType:
       return 'Visibility should be private or public'
-    case ProjectErrorTeamisNotEmpty:
+    case ProjectErrorWorkspaceisNotEmpty:
       return 'The project name is not empty'
     default:
       return 'Unrecognized project error code'
@@ -27,5 +27,5 @@ module.exports = {
   ProjectErrorSlugIsNotEmpty,
   ProjectErrorVisibilityisNotEmpty,
   ProjectErrorVisibilityInvalidType,
-  ProjectErrorTeamisNotEmpty
+  ProjectErrorWorkspaceisNotEmpty
 }
