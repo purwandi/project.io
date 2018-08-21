@@ -189,18 +189,15 @@ module.exports = {
 
   fonts: {
     sans: [
-      'system-ui',
-      'BlinkMacSystemFont',
       '-apple-system',
+      'BlinkMacSystemFont',
       'Segoe UI',
-      'Roboto',
-      'Oxygen',
-      'Ubuntu',
-      'Cantarell',
-      'Fira Sans',
-      'Droid Sans',
-      'Helvetica Neue',
-      'sans-serif'
+      'Helvetica',
+      'Arial',
+      'sans-serif',
+      'Apple Color Emoji',
+      'Segoe UI Emoji',
+      'Segoe UI Symbol'
     ],
     serif: [
       'Constantia',
@@ -237,11 +234,11 @@ module.exports = {
   */
 
   textSizes: {
-    xs: '.75rem', // 12px
-    sm: '.875rem', // 14px
-    base: '1rem', // 16px
-    lg: '1.125rem', // 18px
-    xl: '1.25rem', // 20px
+    xs: '.60rem', // 10px
+    sm: '.75rem', // 12px
+    base: '.875rem', // 14px
+    lg: '1rem', // 16px
+    xl: '1.125rem', // 28px
     '2xl': '1.5rem', // 24px
     '3xl': '1.875rem', // 30px
     '4xl': '2.25rem', // 36px

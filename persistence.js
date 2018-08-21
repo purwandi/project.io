@@ -50,10 +50,18 @@ module.exports = () => {
     boardRepo.Save(board3)
 
     // issue creations
-    let issue1 = Issue.createIssue(project1.UID, 'Halo this isue #1', 'This is issue body')
-    let issue2 = Issue.createIssue(project1.UID, 'Halo this isue #2', 'This is issue body')
+    let issue1 = Issue.createIssue(project1.UID, user1.UID, 'Halo this isue #1', 'This is issue body')
+    let issue2 = Issue.createIssue(project1.UID, user1.UID, 'Halo this isue #2', 'This is issue body')
+    let issue3 = Issue.createIssue(project1.UID, user1.UID, 'Halo this isue #3', 'This is issue body')
+    let issue4 = Issue.createIssue(project1.UID, user1.UID, 'Halo this isue #4', 'This is issue body')
+    let issue5 = Issue.createIssue(project1.UID, user1.UID, 'Halo this isue #5', 'This is issue body')
+    let issue6 = Issue.createIssue(project1.UID, user1.UID, 'Halo this isue #6', 'This is issue body')
     issueRepo.Save(issue1)
     issueRepo.Save(issue2)
+    issueRepo.Save(issue3)
+    issueRepo.Save(issue4)
+    issueRepo.Save(issue5)
+    issueRepo.Save(issue6)
   }
 
   return {

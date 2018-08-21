@@ -11,7 +11,6 @@
     "start": "NODE_ENV=production node index.js"
   },
   "dependencies": {
-    "axios": "^0.18.0",
     "body-parser": "^1.18.3",
     "chalk": "^2.4.1",
     "compression": "^1.7.2",
@@ -20,10 +19,8 @@
     "express-session": "^1.15.6",
     "express-status-monitor": "^1.1.4",
     "express-validation": "^1.0.2",
-    "get-ssl-certificate": "^2.1.2",
     "joi": "^13.4.0",
     "objectmodel": "^3.5.2",
-    "sinon": "^6.1.4",
     "uuid": "^3.3.2"
   },
   "devDependencies": {
@@ -32,6 +29,7 @@
     "@vue/cli-plugin-eslint": "^3.0.0",
     "@vue/cli-plugin-pwa": "^3.0.0",
     "@vue/cli-service": "^3.0.0",
+    "axios": "^0.18.0",
     "chai": "^4.1.2",
     "cucumber": "^4.2.1",
     "dotenv-webpack": "^1.5.7",
@@ -45,7 +43,9 @@
     "eslint-plugin-vue": "^5.0.0-beta.3",
     "glob-all": "^3.1.0",
     "mocha": "^5.2.0",
+    "moment": "^2.22.2",
     "morgan": "^1.9.0",
+    "node-sass": "^4.9.3",
     "nodemon": "^1.17.5",
     "nyc": "^12.0.2",
     "postcss-import": "^12.0.0",
@@ -53,6 +53,8 @@
     "pug-plain-loader": "^1.0.0",
     "purgecss-webpack-plugin": "^1.2.1",
     "register-service-worker": "^1.0.0",
+    "sass-loader": "^7.1.0",
+    "sinon": "^6.1.4",
     "tailwindcss": "*",
     "vue": "^2.5.17",
     "vue-material-design-icons": "^1.6.0",

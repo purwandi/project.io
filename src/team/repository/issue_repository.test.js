@@ -1,7 +1,5 @@
 const IssueRepositoryInMemory = require('./issue_repository')
 const chai = require('chai')
-const Team = require('./../domain/team')
-const Project = require('./../domain/project')
 const Issue = require('./../domain/issue')
 const { Error, RepositoryErrorIsNotInstanceOfIssue } = require('./repository_error')
 
