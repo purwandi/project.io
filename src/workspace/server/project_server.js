@@ -1,5 +1,6 @@
 const express = require('express')
 const { Project } = require('./../domain')
+const { Error, ServerErrorResourceNotFound } = require('./server_error')
 
 class ProjectServer {
 
@@ -32,7 +33,7 @@ class ProjectServer {
   Save (req, res) {
     try {
       let workspace = this.workspaceRepo.FindByUID(req.params.workspace)
-      let project = Project.createProject(workspace.UID, req.params.name, req.params.slug, req.params.visibility)
+      let project = Project.createProject(workspace.UID, req.body.name, req.body.slug, req.body.visibility)
 
       this.projectRepo.Save(project)
 
@@ -43,20 +44,52 @@ class ProjectServer {
   }
 
   FindByUID (req, res) {
+    try {
+      let workspace = this.workspaceRepo.FindByUID(req.params.workspace)
+      let project = this.projectRepo.FindByUID(req.params.project)
 
+      if (project.workspace_uid !== workspace.UID) throw Error(ServerErrorResourceNotFound)
+
+      return res.json({ data: project })
+    } catch (error) {
+      return res.status(500).json({ error })
+    }
   }
 
   Update (req, res) {
+    try {
+      let workspace = this.workspaceRepo.FindByUID(req.params.workspace)
+      let project = this.projectRepo.FindByUID(req.params.project)
 
+      if (project.workspace_uid !== workspace.UID) throw Error(ServerErrorResourceNotFound)
+
+      project.changeName(req.body.name)
+      project.changeVisibility(req.body.visibility)
+
+      return res.json({ data: project })
+    } catch (error) {
+      return res.status(500).json({ error })
+    }
   }
 
   Remove (req, res) {
+    try {
+      let workspace = this.workspaceRepo.FindByUID(req.params.workspace)
+      let project = this.projectRepo.FindByUID(req.params.project)
 
+      if (project.workspace_uid !== workspace.UID) throw Error(ServerErrorResourceNotFound)
+
+      this.projectRepo.Remove(project)
+
+      return res.json()
+    } catch (error) {
+      return res.status(500).json({ error })
+    }
   }
 
 }
 
 module.exports = (workspaceRepo, projectRepo) => {
-  let router = express.Router()
+  let router = express.Router({ mergeParams: true })
   return (new ProjectServer(workspaceRepo, projectRepo, router)).mount()
 }

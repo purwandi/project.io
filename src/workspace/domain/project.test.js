@@ -49,6 +49,21 @@ describe('Project domain test', () => {
         })
     })
 
+    it('can change project name', () => {
+      let workspace = Workspace.createWorkspace('Foobar workspace', 'foobar-workspace')
+      let project = Project.createProject(workspace.UID, 'Project', 'project', 'public')
+
+      project.changeName('Project Name Change')
+
+      chai.expect(project)
+        .to.be.include({
+          workspace_uid: workspace.UID,
+          name: 'Project Name Change',
+          slug: 'project',
+          visibility: 'public'
+        })
+    })
+
     it('should throw error if the workspace parameter is no instance of Workspace class', () => {
       chai.expect(() => Project.createProject(''))
         .to.throw(Error(ProjectErrorWorkspaceisNotEmpty))

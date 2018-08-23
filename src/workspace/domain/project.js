@@ -42,6 +42,11 @@ class Project extends ProjectProperty {
     })
   }
 
+  changeName (name) {
+    this.name = name
+    this.update_at = new Date()
+  }
+
   changeVisibility (visibility) {
     if (!visibilityLevel.includes(visibility)) {
       throw Error(ProjectErrorVisibilityInvalidType)
