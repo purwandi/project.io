@@ -1,7 +1,11 @@
 'use strict'
 
-const { Error, RepositoryErrorIsNotInstanceOfProject } = require('./repository_error')
-const Project = require('./../domain/project')
+const {
+  Error,
+  RepositoryErrorIsNotInstanceOfProject,
+  RepositoryErrorProjectisNotFound
+} = require('./repository_error')
+const { Project } = require('./../domain')
 
 class ProjectRepositoryInMemory {
 
@@ -35,12 +39,26 @@ class ProjectRepositoryInMemory {
     return this.projectMap.findIndex(item => item.UID === project.UID)
   }
 
-  FindByWorkspaceID (workspaceUID) {
+  FindByWorkspaceUID (workspaceUID) {
     return this.projectMap.filter(data => data.workspace_uid === workspaceUID)
   }
 
-  FindByID (projectUID) {
-    return this.projectMap.find(data => data.UID === projectUID)
+  FindByUID (projectUID) {
+    let project = this.projectMap.find(data => data.UID === projectUID)
+
+    if (!project) throw Error(RepositoryErrorProjectisNotFound)
+
+    return project
+  }
+
+  Remove (project) {
+    let index = this.FindIndex(project)
+
+    if (index > -1) {
+      this.projectMap.splice(index, 1)
+      return true
+    }
+    throw Error(RepositoryErrorProjectisNotFound)
   }
 
 }

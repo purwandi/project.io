@@ -6,6 +6,7 @@ const RepositoryErrorIsNotInstanceOfProject = 5
 const RepositoryErrorIsNotInstanceOfSprint = 6
 
 const RepositoryErrorWorkspaceisNotFound = 11
+const RepositoryErrorProjectisNotFound = 12
 
 const Error = (error) => {
   switch (error) {
@@ -23,6 +24,8 @@ const Error = (error) => {
       return 'The parameter is not instance of Sprint class'
     case RepositoryErrorWorkspaceisNotFound:
       return 'Workspace is not found in repository'
+    case RepositoryErrorProjectisNotFound:
+      return 'Project is not found in repository'
     default:
       return 'Unrecognized repository error'
   }

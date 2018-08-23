@@ -1,8 +1,11 @@
 const chai = require('chai')
 const ProjectRepositoryInMemory = require('./project_repository')
-const { Error, RepositoryErrorIsNotInstanceOfProject } = require('./repository_error')
-const Project = require('./../domain/project')
-const Workspace = require('./../domain/workspace')
+const {
+  Error,
+  RepositoryErrorIsNotInstanceOfProject,
+  RepositoryErrorProjectisNotFound
+} = require('./repository_error')
+const { Project, Workspace } = require('./../domain')
 
 describe('Project Repository Test Suite', () => {
   it('ca not save new project if the parameter is not instanceof project', () => {
@@ -70,7 +73,7 @@ describe('Project Repository Test Suite', () => {
     repo.Save(project2)
     repo.Save(project3)
 
-    let projects = repo.FindByWorkspaceID(workspace1.UID)
+    let projects = repo.FindByWorkspaceUID(workspace1.UID)
 
     chai.expect(projects)
       .to.be.eql([project1, project2])
@@ -90,9 +93,62 @@ describe('Project Repository Test Suite', () => {
     repo.Save(project2)
     repo.Save(project3)
 
-    let project = repo.FindByID(project2.UID)
+    let project = repo.FindByUID(project2.UID)
 
     chai.expect(project)
       .to.be.eql(project2)
+  })
+
+  it('should throw error if project is not found', () => {
+    let repo = ProjectRepositoryInMemory.init()
+
+    let workspace1 = Workspace.createWorkspace('Foobar 1', 'foobar-1')
+    let project1 = Project.createProject(workspace1.UID, 'Awesome board 1', 'awesome-board-1', 'private')
+    let project2 = Project.createProject(workspace1.UID, 'Awesome board 2', 'awesome-board-2', 'public')
+
+    let workspace2 = Workspace.createWorkspace('Foobar 2', 'foobar-2')
+    let project3 = Project.createProject(workspace2.UID, 'Awesome board 3', 'awesome-board-3', 'private')
+    let project4 = Project.createProject(workspace2.UID, 'Awesome board 4', 'awesome-board-4', 'private')
+
+    repo.Save(project1)
+    repo.Save(project2)
+    repo.Save(project3)
+
+    chai.expect(() => repo.FindByUID(project4.UID))
+      .to.throw(Error(RepositoryErrorProjectisNotFound))
+  })
+
+  it('can remove project', () => {
+    let repo = ProjectRepositoryInMemory.init()
+
+    let workspace = Workspace.createWorkspace('Foobar 1', 'foobar-1')
+    let project1 = Project.createProject(workspace.UID, 'Awesome board 1', 'awesome-board-1', 'private')
+    let project2 = Project.createProject(workspace.UID, 'Awesome board 2', 'awesome-board-2', 'public')
+    let project3 = Project.createProject(workspace.UID, 'Awesome board 3', 'awesome-board-3', 'private')
+
+    repo.Save(project1)
+    repo.Save(project2)
+    repo.Save(project3)
+
+    repo.Remove(project2)
+
+    let data = repo.FindAll()
+    chai.expect(data)
+      .to.be.eql([project1, project3])
+  })
+
+  it('should throw error when remove project', () => {
+    let repo = ProjectRepositoryInMemory.init()
+
+    let workspace = Workspace.createWorkspace('Foobar 1', 'foobar-1')
+    let project1 = Project.createProject(workspace.UID, 'Awesome board 1', 'awesome-board-1', 'private')
+    let project2 = Project.createProject(workspace.UID, 'Awesome board 2', 'awesome-board-2', 'public')
+    let project3 = Project.createProject(workspace.UID, 'Awesome board 3', 'awesome-board-3', 'private')
+
+    repo.Save(project1)
+    repo.Save(project2)
+
+    chai.expect(() => repo.Remove(project3))
+      .to.throw(Error(RepositoryErrorProjectisNotFound))
   })
 })

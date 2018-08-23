@@ -1,7 +1,11 @@
 const WorkspaceRepositoryInMemory = require('./workspace_repository')
 const chai = require('chai')
-const Workspace = require('./../domain/workspace')
-const { Error, RepositoryErrorIsNotInstanceOfWorkspace, RepositoryErrorWorkspaceisNotFound } = require('./repository_error')
+const { Workspace } = require('./../domain')
+const {
+  Error,
+  RepositoryErrorIsNotInstanceOfWorkspace,
+  RepositoryErrorWorkspaceisNotFound
+} = require('./repository_error')
 
 describe('Workspace Repository Test Suite', () => {
 
@@ -77,7 +81,7 @@ describe('Workspace Repository Test Suite', () => {
     repo.Save(workspace2)
     repo.Save(workspace3)
 
-    chai.expect(() => repo.FindByUID(workspace4))
+    chai.expect(() => repo.FindByUID(workspace4.UID))
       .to.throw(Error(RepositoryErrorWorkspaceisNotFound))
   })
 

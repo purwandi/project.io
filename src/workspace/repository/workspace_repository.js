@@ -1,6 +1,6 @@
 'use strict'
 
-const Workspace = require('./../domain/workspace')
+const { Workspace } = require('./../domain')
 const { Error, RepositoryErrorIsNotInstanceOfWorkspace, RepositoryErrorWorkspaceisNotFound } = require('./repository_error')
 
 class WorkspaceRepositoryInMemory {
