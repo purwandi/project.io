@@ -1,15 +1,21 @@
-const workspaceRepository = require('./workspace/repository')
-const userRepository = require('./user/repository')
+const {
+  WorkspaceRepositoryInMemory,
+  ProjectRepositoryInMemory,
+  LabelRepositoryInMemory,
+  BoardRepositoryInMemory,
+  IssueRepositoryInMemory
+} = require('./workspace/repository')
+const { UserRepository } = require('./user/repository')
 
 module.exports = () => {
 
-  let workspaceRepo = workspaceRepository.WorkspaceRepositoryInMemory.init()
-  let projectRepo = workspaceRepository.ProjectRepositoryInMemory.init()
-  let labelRepo = workspaceRepository.LabelRepositoryInMemory.init()
-  let boardRepo = workspaceRepository.BoardRepositoryInMemory.init()
-  let issueRepo = workspaceRepository.IssueRepositoryInMemory.init()
+  let workspaceRepo = WorkspaceRepositoryInMemory.init()
+  let projectRepo = ProjectRepositoryInMemory.init()
+  let labelRepo = LabelRepositoryInMemory.init()
+  let boardRepo = BoardRepositoryInMemory.init()
+  let issueRepo = IssueRepositoryInMemory.init()
 
-  let userRepo = userRepository.UserRepository.init()
+  let userRepo = UserRepository.init()
 
   if (process.env.DEMO_MODE === "true") {
     /*eslint-disable */
@@ -19,15 +25,8 @@ module.exports = () => {
     /*eslint-enable */
 
     // domain definition
-    const workspaceDomain = require('./workspace/domain')
-    const Workspace = workspaceDomain.Workspace
-    const Project = workspaceDomain.Project
-    const Label = workspaceDomain.Label
-    const Board = workspaceDomain.Board
-    const Issue = workspaceDomain.Issue
-
-    const userDomain = require('./user/domain')
-    const User = userDomain.User
+    const { Workspace, Project, Label, Board, Issue } = require('./workspace/domain')
+    const { User } = require('./user/domain')
 
     // user creations
     let user1 = User.createUser('foobar', 'password')
