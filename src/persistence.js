@@ -5,6 +5,7 @@ module.exports = () => {
 
   let workspaceRepo = workspaceRepository.WorkspaceRepositoryInMemory.init()
   let projectRepo = workspaceRepository.ProjectRepositoryInMemory.init()
+  let labelRepo = workspaceRepository.LabelRepositoryInMemory.init()
   let boardRepo = workspaceRepository.BoardRepositoryInMemory.init()
   let issueRepo = workspaceRepository.IssueRepositoryInMemory.init()
 
@@ -21,6 +22,7 @@ module.exports = () => {
     const workspaceDomain = require('./workspace/domain')
     const Workspace = workspaceDomain.Workspace
     const Project = workspaceDomain.Project
+    const Label = workspaceDomain.Label
     const Board = workspaceDomain.Board
     const Issue = workspaceDomain.Issue
 
@@ -38,6 +40,14 @@ module.exports = () => {
     workspaceRepo.Save(workspace1)
     workspaceRepo.Save(workspace2)
     workspaceRepo.Save(workspace3)
+
+    // label creations
+    let label1 = Label.createLabel(workspace1.UID, 'todo', '#00011')
+    let label2 = Label.createLabel(workspace1.UID, 'doing', '#00012')
+    let label3 = Label.createLabel(workspace1.UID, 'done', '#00013')
+    labelRepo.Save(label1)
+    labelRepo.Save(label2)
+    labelRepo.Save(label3)
 
     // project creations
     let project1 = Project.createProject(workspace1.UID, 'Foobar project', 'foobar-project', 'private')
@@ -69,6 +79,7 @@ module.exports = () => {
   return {
     workspaceRepo,
     projectRepo,
+    labelRepo,
     boardRepo,
     issueRepo,
     userRepo
