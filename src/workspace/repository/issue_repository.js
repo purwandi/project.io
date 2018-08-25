@@ -56,6 +56,7 @@ class IssueRepositoryInMemory {
     }
     throw Error(RepositoryErrorIssueisNotFound)
   }
+
 }
 
 module.exports = IssueRepositoryInMemory

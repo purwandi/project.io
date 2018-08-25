@@ -2,7 +2,7 @@ const chai = require('chai')
 const chaiHttp = require('chai-http')
 const { stringify } = require('./../../helpers/str')
 const app = require('./../../app')()
-const { ProjectRepositoryInMemory, IssueRepositoryInMemory} = require('./../repository')
+const { ProjectRepositoryInMemory, IssueRepositoryInMemory } = require('./../repository')
 const { Project, Issue } = require('./../domain')
 
 let projectRepo = ProjectRepositoryInMemory.init()
