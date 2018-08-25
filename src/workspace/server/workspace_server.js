@@ -1,5 +1,5 @@
 const express = require('express')
-const Workspace = require('./../domain/workspace')
+const { Workspace } = require('./../domain')
 
 class WorkspaceServer {
 
