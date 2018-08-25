@@ -38,7 +38,7 @@ describe('Issue Repository Test Suite', () => {
     repo.Save(issue2)
     repo.Save(issue3)
 
-    let data = repo.FindByID(issue2.UID)
+    let data = repo.FindByUID(issue2.UID)
 
     chai.expect(data)
       .to.be.eql(issue2)
@@ -76,5 +76,23 @@ describe('Issue Repository Test Suite', () => {
 
     chai.expect(data)
       .to.be.eql([issue2])
+  })
+
+  it('can remove project', () => {
+    let repo = IssueRepositoryInMemory.init()
+
+    let issue1 = Issue.createIssue('1221-212', 'user-1', 'New title issue', 'Hallo body issuees')
+    let issue2 = Issue.createIssue('1221-211', 'user-1', 'New title issue', 'Hallo body issuees')
+    let issue3 = Issue.createIssue('1221-212', 'user-2', 'New title issue', 'Hallo body issuees')
+
+    repo.Save(issue1)
+    repo.Save(issue2)
+    repo.Save(issue3)
+
+    repo.Remove(issue2)
+
+    let data = repo.FindAll()
+    chai.expect(data)
+      .to.be.eql([issue1, issue3])
   })
 })

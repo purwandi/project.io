@@ -62,7 +62,7 @@ describe('Label http service test', () => {
     })
   })
 
-  it('can get project by UID', (done) => {
+  it('can get label by UID', (done) => {
     chai.request(app)
       .get('/workspaces/' + workspace1.UID + '/labels/' + label.UID)
       .end((err, res) => {

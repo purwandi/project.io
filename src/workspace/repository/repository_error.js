@@ -9,6 +9,7 @@ const RepositoryErrorIsNotInstanceOfLabel = 7
 const RepositoryErrorWorkspaceisNotFound = 11
 const RepositoryErrorProjectisNotFound = 12
 const RepositoryErrorLabelisNotFound = 13
+const RepositoryErrorIssueisNotFound = 14
 
 
 const Error = (error) => {
@@ -33,6 +34,8 @@ const Error = (error) => {
       return 'Project is not found in repository'
     case RepositoryErrorLabelisNotFound:
       return 'Label is not found in repository'
+    case RepositoryErrorIssueisNotFound:
+      return 'Issue is not found in repository'
     default:
       return 'Unrecognized repository error'
   }
@@ -50,5 +53,6 @@ module.exports = {
 
   RepositoryErrorWorkspaceisNotFound,
   RepositoryErrorLabelisNotFound,
-  RepositoryErrorProjectisNotFound
+  RepositoryErrorProjectisNotFound,
+  RepositoryErrorIssueisNotFound
 }

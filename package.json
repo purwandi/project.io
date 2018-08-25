@@ -2,7 +2,7 @@
   "name": "status.io",
   "version": "0.0.1",
   "scripts": {
-    "test": "nyc mocha --recursive './src/**/*.test.js'",
+    "test": "NODE_ENV=test nyc mocha --recursive './src/**/*.test.js'",
     "lint": "eslint --env mocha --ext .js src/",
     "front:serve": "NODE_ENV=development vue-cli-service serve resources/main.js",
     "front:build": "rm -rf public/* && cp -r resources/assets/img public/img && cp resources/manifest.json public/ && NODE_ENV=production vue-cli-service build --no-clean resources/main.js",
