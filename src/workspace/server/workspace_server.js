@@ -24,7 +24,7 @@ class WorkspaceServer {
         data: this.workspaceRepo.FindAll()
       })
     } catch (error) {
-      return res.json({ error })
+      return res.status(400).json({ error })
     }
   }
 
@@ -35,7 +35,7 @@ class WorkspaceServer {
 
       return res.json({ data: workspace })
     } catch (error) {
-      return res.status(500).json({ error })
+      return res.status(400).json({ error })
     }
   }
 
@@ -45,7 +45,7 @@ class WorkspaceServer {
 
       return res.json({ data: workspace })
     } catch (error) {
-      return res.status(500).json({ error })
+      return res.status(400).json({ error })
     }
   }
 
@@ -58,7 +58,7 @@ class WorkspaceServer {
 
       return res.json({ data: workspace })
     } catch (error) {
-      return res.status(500).json({ error })
+      return res.status(400).json({ error })
     }
   }
 
@@ -69,7 +69,7 @@ class WorkspaceServer {
 
       return res.json()
     } catch (error) {
-      return res.status(500).json({ error })
+      return res.status(400).json({ error })
     }
 
   }

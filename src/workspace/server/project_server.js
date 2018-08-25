@@ -22,11 +22,11 @@ class ProjectServer {
 
   FindAll (req, res) {
     try {
-      let data = this.projectRepo.FindByWorkspaceUID(req.params.workspace)
-
+      let workspace = this.workspaceRepo.FindByUID(req.params.workspace)
+      let data = this.projectRepo.FindByWorkspaceUID(workspace.UID)
       return res.status(200).json({ data })
     } catch (error) {
-      return res.status(500).json()
+      return res.status(400).json({ error })
     }
   }
 
@@ -39,7 +39,7 @@ class ProjectServer {
 
       return res.json({ data: project })
     } catch (error) {
-      return res.status(500).json({ error })
+      return res.status(400).json({ error })
     }
   }
 
@@ -52,7 +52,7 @@ class ProjectServer {
 
       return res.json({ data: project })
     } catch (error) {
-      return res.status(500).json({ error })
+      return res.status(400).json({ error })
     }
   }
 
@@ -68,7 +68,7 @@ class ProjectServer {
 
       return res.json({ data: project })
     } catch (error) {
-      return res.status(500).json({ error })
+      return res.status(400).json({ error })
     }
   }
 
@@ -83,7 +83,7 @@ class ProjectServer {
 
       return res.json()
     } catch (error) {
-      return res.status(500).json({ error })
+      return res.status(400).json({ error })
     }
   }
 

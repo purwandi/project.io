@@ -22,11 +22,12 @@ class LabelServer {
 
   FindAll (req, res) {
     try {
-      let labels = this.labelRepo.FindByWorkspaceUID(req.params.workspace)
+      let workspace = this.workspaceRepo.FindByUID(req.params.workspace)
+      let labels = this.labelRepo.FindByWorkspaceUID(workspace.UID)
 
       return res.json({ data: labels })
     } catch (error) {
-      return res.status(500).json({ error })
+      return res.status(400).json({ error })
     }
   }
 
@@ -39,7 +40,7 @@ class LabelServer {
 
       return res.json({ data: label })
     } catch (error) {
-      return res.status(500).json({ error })
+      return res.status(400).json({ error })
     }
   }
 
@@ -52,7 +53,7 @@ class LabelServer {
 
       return res.json({ data: label })
     } catch (error) {
-      return res.status(500).json({ error })
+      return res.status(400).json({ error })
     }
   }
 
@@ -70,7 +71,7 @@ class LabelServer {
 
       return res.json({ data: label })
     } catch (error) {
-      return res.status(500).json({ error })
+      return res.status(400).json({ error })
     }
   }
 
@@ -85,7 +86,7 @@ class LabelServer {
 
       return res.json()
     } catch (error) {
-      return res.status(500).json({ error })
+      return res.status(400).json({ error })
     }
   }
 

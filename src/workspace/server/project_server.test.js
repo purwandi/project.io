@@ -4,6 +4,7 @@ const { stringify } = require('./../../helpers/str')
 const app = require('./../../app')()
 const { WorkspaceRepositoryInMemory, ProjectRepositoryInMemory } = require('./../repository')
 const { Workspace, Project } = require('./../domain')
+const { Error, RepositoryErrorWorkspaceisNotFound } = require('./../repository/repository_error')
 
 let workspace1 = Workspace.createWorkspace('Gojek', 'gojek')
 let workspace2 = Workspace.createWorkspace('Traveloka', 'traveloka')
@@ -30,6 +31,16 @@ describe('Project http service test', () => {
         chai.expect(res.body).to.deep.eql({
           data: [ stringify(project) ]
         })
+        done()
+      })
+  })
+
+  it('should response http error if work workspace UID', (done) => {
+    chai.request(app)
+      .get('/workspaces/94354343/projects')
+      .end((err, res) => {
+        chai.expect(res).to.have.status(400)
+        chai.expect(res.body).to.be.include({ error: Error(RepositoryErrorWorkspaceisNotFound) })
         done()
       })
   })
