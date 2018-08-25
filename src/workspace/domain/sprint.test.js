@@ -55,7 +55,7 @@ describe('Sprint domain test', () => {
       chai.expect(sprint.finish_date).to.eql(new Date(Date.now() + 12096e5))
     })
 
-    it ('can finish the sprint', () => {
+    it('can finish the sprint', () => {
       let sprint = Sprint.createSprint('23423423423', 'Sprint 1')
       sprint.start()
       sprint.closed()

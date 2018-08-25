@@ -22,7 +22,9 @@ describe('Workspace http service test', () => {
       .get('/workspaces')
       .end((err, res) => {
         chai.expect(res).to.have.status(200)
-        chai.expect(res.body).to.deep.eql({ data: [ stringify(workspace1), stringify(workspace2) ]})
+        chai.expect(res.body).to.deep.eql({
+          data: [ stringify(workspace1), stringify(workspace2) ]
+        })
         done()
       })
   })
@@ -65,13 +67,13 @@ describe('Workspace http service test', () => {
   })
 
   it('can delete workspace', (done) => {
-    let [_workspace1, _workspace2, _workspace3 ] = workspaceRepo.FindAll()
+    let [ _workspace1, _workspace2, _workspace3 ] = workspaceRepo.FindAll()
 
     chai.request(app)
       .delete('/workspaces/' + _workspace1.UID)
       .end((err, res) => {
         chai.expect(res).to.have.status(200)
-        chai.expect(workspaceRepo.FindAll()).to.eql([ _workspace2, _workspace3])
+        chai.expect(workspaceRepo.FindAll()).to.eql([ _workspace2, _workspace3 ])
         done()
       })
   })
