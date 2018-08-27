@@ -66,4 +66,37 @@ describe('Sprint repository test suite', () => {
       .to.be.eql([ sprint1, sprint2 ])
   })
 
+  it('can find sprint by sprint UID', () => {
+    let repo = SprintRepositoryInMemory.init()
+    let sprint1 = Sprint.createSprint('1223323', 'Sprint 1')
+    let sprint2 = Sprint.createSprint('1223323', 'Sprint 2')
+    let sprint3 = Sprint.createSprint('1223325', 'Sprint 3')
+
+    repo.Save(sprint1)
+    repo.Save(sprint2)
+    repo.Save(sprint3)
+
+    let data = repo.FindByUID(sprint1.UID)
+
+    chai.expect(data)
+      .to.be.eql(sprint1)
+  })
+
+  it('can remove sprint', () => {
+    let repo = SprintRepositoryInMemory.init()
+    let sprint1 = Sprint.createSprint('1223323', 'Sprint 1')
+    let sprint2 = Sprint.createSprint('1223323', 'Sprint 2')
+    let sprint3 = Sprint.createSprint('1223325', 'Sprint 3')
+
+    repo.Save(sprint1)
+    repo.Save(sprint2)
+    repo.Save(sprint3)
+
+    repo.Remove(sprint2)
+
+    let data = repo.FindAll()
+    chai.expect(data)
+      .to.be.eql([sprint1, sprint3])
+  })
+
 })

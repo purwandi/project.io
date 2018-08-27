@@ -3,7 +3,8 @@ const {
   ProjectRepositoryInMemory,
   LabelRepositoryInMemory,
   BoardRepositoryInMemory,
-  IssueRepositoryInMemory
+  IssueRepositoryInMemory,
+  SprintRepositoryInMemory
 } = require('./workspace/repository')
 const { UserRepository } = require('./user/repository')
 
@@ -14,6 +15,7 @@ module.exports = () => {
   let labelRepo = LabelRepositoryInMemory.init()
   let boardRepo = BoardRepositoryInMemory.init()
   let issueRepo = IssueRepositoryInMemory.init()
+  let sprintRepo = SprintRepositoryInMemory.init()
 
   let userRepo = UserRepository.init()
 
@@ -81,6 +83,7 @@ module.exports = () => {
     labelRepo,
     boardRepo,
     issueRepo,
-    userRepo
+    userRepo,
+    sprintRepo
   }
 }
