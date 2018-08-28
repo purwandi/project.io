@@ -11,6 +11,7 @@ const RepositoryErrorProjectisNotFound = 12
 const RepositoryErrorLabelisNotFound = 13
 const RepositoryErrorIssueisNotFound = 14
 const RepsitoryErrorSprintisNotFound = 15
+const RepositoryErrorWorkspaceMemberisNotFound = 16
 
 
 const Error = (error) => {
@@ -39,6 +40,8 @@ const Error = (error) => {
       return 'Issue is not found in repository'
     case RepsitoryErrorSprintisNotFound:
       return 'Sprint is not found in repository'
+    case RepositoryErrorWorkspaceMemberisNotFound:
+      return 'Workspace member is not found in repository'
     default:
       return 'Unrecognized repository error'
   }
@@ -58,5 +61,6 @@ module.exports = {
   RepositoryErrorLabelisNotFound,
   RepositoryErrorProjectisNotFound,
   RepositoryErrorIssueisNotFound,
-  RepsitoryErrorSprintisNotFound
+  RepsitoryErrorSprintisNotFound,
+  RepositoryErrorWorkspaceMemberisNotFound
 }

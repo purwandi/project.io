@@ -77,9 +77,49 @@ describe('Workspace Member Repository Test', () => {
     repo.Save(member3)
     repo.Save(member4)
 
-    let members = repo.FindAllByWorkspaceID('22323-123123-12321')
+    let members = repo.FindAllByWorkspaceUID('22323-123123-12321')
 
     chai.expect(members)
       .to.be.eql([member1, member4])
   })
+
+  it('can remove workspace member', () => {
+    let repo = WorkspaceMemberRepositoryInMemory.init()
+
+    let member1 = WorkspaceMember.createWorkspaceMember('12323-123123-12321', '22323-123123-12321', 'admin')
+    let member2 = WorkspaceMember.createWorkspaceMember('12323-123123-12321', '22323-123123-12322', 'member')
+    let member3 = WorkspaceMember.createWorkspaceMember('12323-123123-12322', '22323-123123-12321', 'admin')
+    let member4 = WorkspaceMember.createWorkspaceMember('12323-123123-12322', '22323-123123-12321', 'member')
+
+    repo.Save(member1)
+    repo.Save(member2)
+    repo.Save(member3)
+    repo.Save(member4)
+
+    chai.expect(repo.FindAllByWorkspaceUID('22323-123123-12321'))
+      .to.be.eql([member1, member4])
+
+    repo.Remove(member4)
+
+    chai.expect(repo.FindAllByWorkspaceUID('22323-123123-12321'))
+      .to.be.eql([member1])
+  })
+
+  it('can find workspace member by userid and workspaceid', () => {
+    let repo = WorkspaceMemberRepositoryInMemory.init()
+
+    let member1 = WorkspaceMember.createWorkspaceMember('12323-123123-12321', '22323-123123-12321', 'admin')
+    let member2 = WorkspaceMember.createWorkspaceMember('12323-123123-12321', '22323-123123-12322', 'member')
+    let member3 = WorkspaceMember.createWorkspaceMember('12323-123123-12322', '22323-123123-12321', 'admin')
+    let member4 = WorkspaceMember.createWorkspaceMember('12323-123123-12322', '22323-123123-12321', 'member')
+
+    repo.Save(member1)
+    repo.Save(member2)
+    repo.Save(member3)
+    repo.Save(member4)
+
+    chai.expect(repo.FindIndexByUserUIDWithWorkspaceUID('12323-123123-12321', '22323-123123-12321'))
+      .to.be.eql(member1)
+  })
+
 })

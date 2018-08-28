@@ -1,7 +1,11 @@
 'use strict'
 
 const WorkspaceMember = require('./../domain/workspace_member')
-const { Error, RepositoryErrorIsNotInstanceOfWorkspaceMember } = require('./repository_error')
+const {
+  Error,
+  RepositoryErrorIsNotInstanceOfWorkspaceMember,
+  RepositoryErrorWorkspaceMemberisNotFound
+} = require('./repository_error')
 
 class WorkspaceMemberRepositoryInMemory {
 
@@ -41,8 +45,24 @@ class WorkspaceMemberRepositoryInMemory {
     })
   }
 
-  FindAllByWorkspaceID (workspaceUID) {
+  FindAllByWorkspaceUID (workspaceUID) {
     return this.workspaceMemberMap.filter(data => data.workspace_uid === workspaceUID)
+  }
+
+  FindIndexByUserUIDWithWorkspaceUID (userUID, workspaceUID) {
+    return this.workspaceMemberMap.find(item => {
+      return item.user_uid === userUID && item.workspace_uid === workspaceUID
+    })
+  }
+
+  Remove (workspaceMember) {
+    let index = this.FindIndex(workspaceMember)
+
+    if (index > -1) {
+      this.workspaceMemberMap.splice(index, 1)
+      return true
+    }
+    throw Error(RepositoryErrorWorkspaceMemberisNotFound)
   }
 
 }
