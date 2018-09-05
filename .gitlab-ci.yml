@@ -1,0 +1,23 @@
+image: node:8-alpine
+cache:
+  paths:
+    - node_modules/
+
+stages:
+  - build
+  - test
+
+build:
+  stage: build
+  script:
+    - npm install
+
+linting:
+  stage: test
+  script:
+    - npm run lint
+
+unit-testing:
+  stage: test
+  script:
+    - npm run test
