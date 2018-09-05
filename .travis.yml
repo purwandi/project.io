@@ -16,7 +16,7 @@ jobs:
   include:
     - script: cp .env.example .env
     - stage: build
-      script: npm run install
+      script: npm install
     - stage: test
       script: npm run lint
       script: npm run test
