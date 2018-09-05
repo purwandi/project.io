@@ -11,6 +11,7 @@
     "start": "NODE_ENV=production node index.js"
   },
   "dependencies": {
+    "bcrypt": "^3.0.0",
     "body-parser": "^1.18.3",
     "chalk": "^2.4.1",
     "compression": "^1.7.2",
@@ -19,8 +20,8 @@
     "express-session": "^1.15.6",
     "express-status-monitor": "^1.1.4",
     "express-validation": "^1.0.2",
-    "joi": "^13.4.0",
     "objectmodel": "^3.7.3",
+    "query-string": "^6.1.0",
     "uuid": "^3.3.2"
   },
   "devDependencies": {
@@ -31,6 +32,7 @@
     "@vue/cli-service": "^3.0.0",
     "axios": "^0.18.0",
     "chai": "^4.1.2",
+    "chai-as-promised": "^7.1.1",
     "chai-http": "^4.0.0",
     "cucumber": "^4.2.1",
     "dotenv-webpack": "^1.5.7",

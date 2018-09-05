@@ -9,5 +9,6 @@ cache:
     - "node_modules"
 
 script:
+  - cp .env.exampple .env
   - npm run lint
   - npm run test

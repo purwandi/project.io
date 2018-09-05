@@ -9,26 +9,47 @@ class UserServer {
   }
 
   mount () {
-    this.router.get('/', this.findAll.bind(this))
-    this.router.post('/', this.store.bind(this))
+    this.router.get('/', this.FindAll.bind(this))
+    this.router.get('/:username',this.FindByUsername.bind(this))
 
     return this.router
   }
 
-  findAll (req, res) {
-    return res.json({
-      data: this.userRepo.FindAll()
-    })
+  FindAll (req, res) {
+    try {
+      let users = this.userRepo.FindAll()
+      return res.json({ data: users })
+    } catch (error) {
+      return res.status(400).json({ error })
+    }
   }
 
-  store (req, res) {
+  FindByUsername (req, res) {
     try {
-      let user = User.createUser(req.body.username, req.body.password)
+      let user = this.userRepo.FindByUsername(req.params.username)
+      return res.json({ data: user })
+    } catch (error) {
+      return res.status(400).json({ error })
+    }
+  }
+
+  async Save (req, res) {
+    try {
+      let user = await User.createUser(req.body.username, req.body.password)
       this.userRepo.Save(user)
 
       return res.json({ data: user })
     } catch (error) {
-      return res.status(500).json({ error })
+      return res.status(400).json({ error })
+    }
+  }
+
+  FindByUID (req, res) {
+    try {
+      let users = this.userRepo.FindByUID(req.params.user)
+      return res.json({ data: users })
+    } catch (error) {
+      return res.status(400).json({ error })
     }
   }
 
@@ -36,5 +57,5 @@ class UserServer {
 
 module.exports = (userRepo) => {
   let router = express.Router()
-  return new UserServer(userRepo, router).mount()
+  return (new UserServer(userRepo, router)).mount()
 }

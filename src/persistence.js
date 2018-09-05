@@ -6,9 +6,9 @@ const {
   IssueRepositoryInMemory,
   SprintRepositoryInMemory
 } = require('./workspace/repository')
-const { UserRepository } = require('./user/repository')
+const { UserRepositoryInMemory } = require('./user/repository')
 
-module.exports = () => {
+const persistence = async () => {
 
   let workspaceRepo = WorkspaceRepositoryInMemory.init()
   let projectRepo = ProjectRepositoryInMemory.init()
@@ -17,7 +17,7 @@ module.exports = () => {
   let issueRepo = IssueRepositoryInMemory.init()
   let sprintRepo = SprintRepositoryInMemory.init()
 
-  let userRepo = UserRepository.init()
+  let userRepo = UserRepositoryInMemory.init()
 
   if (process.env.DEMO_MODE === "true") {
     /*eslint-disable */
@@ -31,7 +31,7 @@ module.exports = () => {
     const { User } = require('./user/domain')
 
     // user creations
-    let user1 = User.createUser('foobar', 'password')
+    let user1 = await User.createUser('foobar', 'password')
     userRepo.Save(user1)
 
     // workspace creations
@@ -87,3 +87,5 @@ module.exports = () => {
     sprintRepo
   }
 }
+
+module.exports = persistence
