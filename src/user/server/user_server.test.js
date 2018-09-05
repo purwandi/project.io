@@ -12,7 +12,7 @@ chai.use(chaiHttp)
 
 describe('User http service test', () => {
 
-  before (async () => {
+  before(async () => {
     let user1 = await User.createUser('foobar', 'foo-password')
     let user2 = await User.createUser('foobar-2', 'foo-password-2')
 

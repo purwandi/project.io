@@ -9,12 +9,11 @@ cache:
     - "node_modules"
 
 stages:
+  - build
   - test
 
 jobs:
   include:
     - stage: test
-      name: "Linting"
       script: npm run lint
-      name: "Unit test"
       script: cp .env.example .env && npm run test

@@ -27,7 +27,7 @@ class ProfileServer {
 
   Update (req, res) {
     try {
-      let user = this.userRepo.FindByUID(req.params.user)
+      let user = this.userRepo.FindByUID(req.session.user_uid)
 
       user.changeName(req.body.name)
       user.changeEmail(req.body.email)
@@ -42,9 +42,14 @@ class ProfileServer {
 
   async ChangePassword (req, res) {
     try {
-      let user = this.userRepo.FindByUID(req.params.user)
+      let user = this.userRepo.FindByUID(req.session.user_uid)
 
-      await user.changePassword(req.body.password, req.body.newPassword, req.body.newConfirmPassword)
+      await user.changePassword(
+        req.body.password,
+        req.body.new_password,
+        req.body.new_confirm_password
+      )
+
       this.userRepo.Save(user)
 
       return res.json({ data: user })
