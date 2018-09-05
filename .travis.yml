@@ -17,6 +17,4 @@ jobs:
       name: "Linting"
       script: npm run lint
       name: "Unit test"
-      script:
-        - cp .env.example .env
-        - npm run test
+      script: cp .env.example .env && npm run test
