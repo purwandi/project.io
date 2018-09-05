@@ -8,7 +8,15 @@ cache:
   directories:
     - "node_modules"
 
-script:
-  - cp .env.example .env
-  - npm run lint
-  - npm run test
+stages:
+  - build
+  - test
+
+jobs:
+  include:
+    - script: cp .env.example .env
+    - stage: build
+      script: npm run install
+    - stage: test
+      script: npm run lint
+      script: npm run test
